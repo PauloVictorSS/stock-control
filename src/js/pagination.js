@@ -20,8 +20,10 @@ function applyPagination(arrayResult) {
 }
 
 function createButtonsPagiantion(number) {
-    const divPagination = document.querySelector("#pagination");
+    const divPagination = document.querySelector("#divPagination");
     let limit = Math.floor(number / (numberPagination + 1)) + 1
+
+    divPagination.innerHTML = '';
 
     for (let cont = 1; cont <= limit; cont++) {
 

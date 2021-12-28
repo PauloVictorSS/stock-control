@@ -17,7 +17,7 @@ const exampleComponents = [
     },
     {
         id: "ID3",
-        name: "componente 4",
+        name: "TIP 41C",
         qtd: 4,
         local: "local 4",
         description: "descrição geral do componente",
@@ -49,7 +49,7 @@ const exampleComponents = [
     },
     {
         id: "ID3",
-        name: "componente 4",
+        name: "TIP 42C",
         qtd: 4,
         local: "local 4",
         description: "descrição geral do componente",
@@ -95,8 +95,9 @@ function arrayToTableListHTML(arrayResult) {
         buttonEdit.innerText = "Editar"
         buttonDelete.innerText = "Deletar"
 
-        buttonEdit.setAttribute('id', 'buttonEdit');
-        buttonDelete.setAttribute('id', 'buttonDelete');
+        td.setAttribute('class', 'buttonTD');
+        buttonEdit.setAttribute('class', 'buttonGreen');
+        buttonDelete.setAttribute('class', 'buttonRed');
 
         buttonEdit.addEventListener('click', () => { editComponent(arrayResult[i].id) });
         buttonDelete.addEventListener('click', () => { deleteComponent(arrayResult[i].id) });
@@ -127,6 +128,8 @@ function applyFilter() {
 
     arrayFilted = result;
 
+    createButtonsPagiantion(arrayFilted.length)
+
     const oldPagination = document.querySelector("#paginationSelected");
     const newPagination = document.querySelector(".id1");
 
@@ -146,5 +149,4 @@ function deleteComponent(id) {
     console.log(`Deletei: ${id}`);
 }
 
-createButtonsPagiantion(exampleComponents.length)
 applyFilter()
