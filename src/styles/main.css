@@ -1,0 +1,19 @@
+:root {
+    
+    --color-background: #373737;
+    --color-background-tc: #f4f4f4;
+    --color-primary-text: #c0b283;
+    --color-shadow: #1f1f1f;
+}
+
+html, body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+}
