@@ -8,7 +8,6 @@ const createWindow = async () => {
         height: 600,
     })
 
-    mainWindow.removeMenu()
     mainWindow.loadURL(`file://${__dirname}/src/index.html`)
 }
 
