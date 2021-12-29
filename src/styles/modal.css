@@ -1,0 +1,68 @@
+.modal{
+    display: none;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+
+}
+
+.modal.show{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    animation: modal .3s;
+}
+
+@keyframes modal {
+    from{
+        opacity: 0;
+        transform: translate3d(0, -60px, 0);
+    }
+    to{
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.modal .modalBody{
+
+    background-color: var(--color-background-tc);
+    border: 2px solid var(--color-primary-text);
+    border-radius: 5px;
+
+    width: 350px;
+    height: 350px;
+
+    padding: 5px 20px;
+}
+
+.modalBody h3{
+
+    text-align: center;
+}
+
+.modalBody .divButton{
+    width: 200px;
+
+    margin: 30px auto 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal#mensageModal .modalBody{
+    height: 100px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

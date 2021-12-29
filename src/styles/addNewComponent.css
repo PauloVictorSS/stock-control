@@ -1,0 +1,29 @@
+#formsAddComponent{
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#formsAddComponent input{
+    background-color: rgb(247, 247, 247);
+
+    margin: 5px 0;
+    border: 1px solid #444;
+
+    width: 300px;
+}
+
+#formsAddComponent textarea{
+    width: 300px;
+    height: 100px;
+
+    padding: 5px;
+
+    border-radius: 2px;
+
+    background-color: rgb(247, 247, 247);
+    border: 1px solid #444;
+
+    resize: none;
+}

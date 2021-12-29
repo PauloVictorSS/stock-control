@@ -68,6 +68,7 @@ const exampleComponents = [
 const numberPagination = 3
 let arrayFilted = []
 
+
 function arrayToTableListHTML(arrayResult) {
 
     const tbody = document.querySelector("#tbody");
@@ -120,10 +121,18 @@ function applyFilter() {
     })
 
     result.sort((a, b) => {
-        if (a[orderBySelector.value] < b[orderBySelector.value])
-            return -1;
-        else
-            return true;
+        if (orderBySelector.value == "name") {
+            if (a.name.toLowerCase() < b.name.toLowerCase())
+                return -1;
+            else
+                return true;
+        }
+        else {
+            if (a[orderBySelector.value] < b[orderBySelector.value])
+                return -1;
+            else
+                return true;
+        }
     });
 
     arrayFilted = result;
@@ -139,13 +148,54 @@ function applyFilter() {
     applyPagination(arrayFilted);
 }
 
-function editComponent(id) {
+function changeStatusModal(text) {
 
+    const modalAddNewComponent = document.querySelector(text);
+
+    let classes = modalAddNewComponent.className;
+
+    if (classes.indexOf('show') != -1)
+        modalAddNewComponent.setAttribute('class', 'modal');
+    else
+        modalAddNewComponent.setAttribute('class', 'modal show');
+}
+
+function adicionarComponent() {
+
+    const name = document.querySelector("#nameAddInput").value;
+    const qtd = document.querySelector("#qtdAddInput").value;
+    const local = document.querySelector("#localAddInput").value;
+    const description = document.querySelector("#descriptionAddInput").value;
+
+    if (name != "" || qtd != "" || local != "" || description != "") {
+
+
+        exampleComponents.push({
+            id: "ID novo",
+            name,
+            qtd,
+            local,
+            description,
+            lastUpdate: new Date()
+        });
+        document.querySelector("#textMensage").innerText = "Componente adicionado com sucesso!";
+
+        applyFilter();
+        changeStatusModal("#addNewComponent");
+    }
+    else {
+
+        document.querySelector("#textMensage").innerText = "Preencha todos os campos";
+    }
+    changeStatusModal("#mensageModal");
+}
+
+
+function editComponent(id) {
     console.log(`Editei: ${id}`);
 }
 
 function deleteComponent(id) {
-
     console.log(`Deletei: ${id}`);
 }
 

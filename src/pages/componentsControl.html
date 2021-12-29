@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Controle de Estoque e Clientes</title>
     <link rel="stylesheet" href="../styles/main.css">
-    <link rel="stylesheet" href="../styles//componentsControl.css">
+    <link rel="stylesheet" href="../styles/componentsControl.css">
+    <link rel="stylesheet" href="../styles/modal.css">
+    <link rel="stylesheet" href="../styles/addNewComponent.css">
 </head>
 
 <body>
@@ -23,7 +25,8 @@
                     <option value="lastUpdate">Última atualização</option>
                 </select>
             </div>
-            <button class="buttonGreen">NOVO COMPONENTE</button>
+            <button class="buttonGreen" onclick="changeStatusModal('#addNewComponent')">NOVO
+                COMPONENTE</button>
         </div>
         <table>
             <thead>
@@ -41,6 +44,28 @@
             </tbody>
         </table>
         <div id="divPagination"></div>
+    </div>
+    <div class="modal" id="addNewComponent">
+        <div class="modalBody">
+            <h3>NOVO COMPONENTE</h3>
+            <div id="formsAddComponent">
+                <input type="text" placeholder="Nome" id="nameAddInput">
+                <input type="number" placeholder="Quantidade" id="qtdAddInput">
+                <input type="text" placeholder="Local de armazenamento" id="localAddInput">
+                <textarea placeholder="Descrição" id="descriptionAddInput"></textarea>
+            </div>
+            <div class="divButton">
+                <button onclick="adicionarComponent()" class="buttonGreen">ADICIONAR</button>
+                <button onclick="changeStatusModal('#addNewComponent')" class="buttonRed">FECHAR</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="mensageModal">
+        <div class="modalBody">
+            <h3 id="textMensage">NOVO COMPONENTE</h3>
+            <button onclick="changeStatusModal('#mensageModal')" class="buttonRed">FECHAR</button>
+        </div>
     </div>
 </body>
 <script src="../js/pagination.js"></script>
