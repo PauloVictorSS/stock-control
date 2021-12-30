@@ -71,17 +71,21 @@ let arrayFilted = []
 
 function arrayToTableListHTML(arrayResult) {
 
-    const tbody = document.querySelector("#tbody");
+    const tbody = document.querySelector('#tbody');
     let newTBody = document.createElement('tbody');
-    newTBody.setAttribute('id', 'tbody');
+
+    newTBody.setAttribute('id', 'tbody')
 
     for (let i = 0; i < arrayResult.length; i++) {
 
         let tr = newTBody.insertRow();
+        tr.setAttribute('id', arrayResult[i].id)
 
         for (const key in arrayResult[i]) {
 
             let td = tr.insertCell()
+
+            td.setAttribute('id', key + '_' + arrayResult[i].id)
 
             if (key != 'lastUpdate')
                 td.innerText = arrayResult[i][key];
@@ -100,7 +104,7 @@ function arrayToTableListHTML(arrayResult) {
         buttonEdit.setAttribute('class', 'buttonGreen');
         buttonDelete.setAttribute('class', 'buttonRed');
 
-        buttonEdit.addEventListener('click', () => { editComponent(arrayResult[i].id) });
+        buttonEdit.addEventListener('click', () => { toEditComponent(arrayResult[i].id) });
         buttonDelete.addEventListener('click', () => { deleteComponent(arrayResult[i].id) });
 
         td.appendChild(buttonEdit);
@@ -160,7 +164,7 @@ function changeStatusModal(text) {
         modalAddNewComponent.setAttribute('class', 'modal show');
 }
 
-function adicionarComponent() {
+function addNewComponent() {
 
     const name = document.querySelector("#nameAddInput").value;
     const qtd = document.querySelector("#qtdAddInput").value;
@@ -190,9 +194,69 @@ function adicionarComponent() {
     changeStatusModal("#mensageModal");
 }
 
+function toAddNewComponent() {
 
-function editComponent(id) {
-    console.log(`Editei: ${id}`);
+    document.querySelector("#titleCardComponent").innerText = "NOVO COMPONENTE"
+
+    document.querySelector("#nameAddInput").value = "";
+    document.querySelector("#qtdAddInput").value = "";
+    document.querySelector("#localAddInput").value = "";
+    document.querySelector("#descriptionAddInput").value = "";
+
+    document.querySelector("#addButton").setAttribute('class', 'buttonGreen');
+    document.querySelector("#editButton").setAttribute('class', 'buttonGreen none');
+
+    changeStatusModal('#addNewComponent')
+}
+
+function toEditComponent(id) {
+
+    document.querySelector("#titleCardComponent").innerText = "EDITAR COMPONENTE"
+
+    document.querySelector("#nameAddInput").value = document.querySelector('#' + 'name_' + id).innerText;
+    document.querySelector("#qtdAddInput").value = document.querySelector('#' + 'qtd_' + id).innerText;
+    document.querySelector("#localAddInput").value = document.querySelector('#' + 'local_' + id).innerText;
+    document.querySelector("#descriptionAddInput").value = document.querySelector('#' + 'description_' + id).innerText;
+
+    document.querySelector("#editButton").setAttribute('class', 'buttonGreen');
+    document.querySelector("#addButton").setAttribute('class', 'buttonGreen none');
+
+    document.querySelector("#editButton").value = id;
+
+    changeStatusModal('#addNewComponent')
+}
+
+
+function editComponent() {
+
+    const id = document.querySelector("#editButton").value
+    const name = document.querySelector("#nameAddInput").value;
+    const qtd = document.querySelector("#qtdAddInput").value;
+    const local = document.querySelector("#localAddInput").value;
+    const description = document.querySelector("#descriptionAddInput").value;
+
+    if (name != "" || qtd != "" || local != "" || description != "") {
+
+
+        console.log({
+            id,
+            name,
+            qtd,
+            local,
+            description,
+            lastUpdate: new Date()
+        });
+        document.querySelector("#textMensage").innerText = "Componente editado com sucesso!";
+
+        applyFilter();
+        changeStatusModal("#addNewComponent");
+    }
+    else {
+
+        document.querySelector("#textMensage").innerText = "Não deixei nenhum campo vazio";
+    }
+
+    changeStatusModal("#mensageModal");
 }
 
 function deleteComponent(id) {

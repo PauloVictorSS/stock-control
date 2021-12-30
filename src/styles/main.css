@@ -72,6 +72,10 @@ button{
     transition: .3s;
 }
 
+button.none{
+    display: none;
+}
+
 .buttonGreen{
 
     background-color: var(--color-button-add);

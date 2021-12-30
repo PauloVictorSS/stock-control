@@ -25,7 +25,7 @@
                     <option value="lastUpdate">Última atualização</option>
                 </select>
             </div>
-            <button class="buttonGreen" onclick="changeStatusModal('#addNewComponent')">NOVO
+            <button class="buttonGreen" onclick="toAddNewComponent()">NOVO
                 COMPONENTE</button>
         </div>
         <table>
@@ -40,14 +40,13 @@
                     <th>Ações</th>
                 </tr>
             </thead>
-            <tbody id="tbody">
-            </tbody>
+            <tbody id="tbody"></tbody>
         </table>
         <div id="divPagination"></div>
     </div>
     <div class="modal" id="addNewComponent">
         <div class="modalBody">
-            <h3>NOVO COMPONENTE</h3>
+            <h3 id="titleCardComponent">NOVO COMPONENTE</h3>
             <div id="formsAddComponent">
                 <input type="text" placeholder="Nome" id="nameAddInput">
                 <input type="number" placeholder="Quantidade" id="qtdAddInput">
@@ -55,7 +54,8 @@
                 <textarea placeholder="Descrição" id="descriptionAddInput"></textarea>
             </div>
             <div class="divButton">
-                <button onclick="adicionarComponent()" class="buttonGreen">ADICIONAR</button>
+                <button onclick="addNewComponent()" class="buttonGreen" id="addButton">ADICIONAR</button>
+                <button onclick="editComponent()" class="buttonGreen none" id="editButton">SALVAR ALTERAÇÕES</button>
                 <button onclick="changeStatusModal('#addNewComponent')" class="buttonRed">FECHAR</button>
             </div>
         </div>
@@ -63,8 +63,8 @@
 
     <div class="modal" id="mensageModal">
         <div class="modalBody">
-            <h3 id="textMensage">NOVO COMPONENTE</h3>
-            <button onclick="changeStatusModal('#mensageModal')" class="buttonRed">FECHAR</button>
+            <h3 id="textMensage"></h3>
+            <button onclick="changeStatusModal('#mensageModal')" class="buttonGreen">OK</button>
         </div>
     </div>
 </body>
