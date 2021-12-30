@@ -1,0 +1,64 @@
+.modalBody#modalClient{
+
+    width: 90%;
+    max-width: 1000px;
+    height: 500px;
+}
+
+.modalBody#modalClient #formsAddClient input{
+    border: 1px solid rgb(61, 61, 61);
+    width: 22%;
+}
+.modalBody#modalClient #formsAddClient input#nameClient{
+    width: 100%;
+}
+.modalBody#modalClient #formsAddClient input#localClient{
+    width: 50%;
+}
+.modalBody#modalClient #formsAddClient input#firstDate,
+.modalBody#modalClient #formsAddClient input#lastDate{
+    width: 300px;
+}
+
+.modalBody#modalClient #formsAddClient label{
+    margin-right: 8px;
+}
+
+.modalBody#modalClient #formsAddClient div{
+
+    margin: 20px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modalBody#modalClient #formsAddClient div.noMargin{
+
+    margin: 0;
+}
+
+#titleCardClient{
+
+    text-align: center;
+    margin: 20px 0;
+}
+
+.pDisplayNoBlock{
+    display: inline-block;
+
+    padding: 0;
+    margin: 0;
+}
+
+.modalBody#modalClient textarea{
+    width: 100%;
+    resize: none;
+    height: 150px;
+
+    padding: 5px;
+    border-radius: 2px;
+
+    background-color: rgb(247, 247, 247);
+    border: 1px solid #444;
+}

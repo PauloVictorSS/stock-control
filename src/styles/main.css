@@ -10,6 +10,10 @@
     --color-button-delete-secundary: rgb(245, 21, 21);
 }
 
+*{
+    box-sizing: border-box;
+}
+
 html, body{
     width: 100%;
     height: 100%;

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Controle de Estoque e Clientes</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/componentsControl.css">
+    <link rel="stylesheet" href="../styles/clientsControl.css">
+    <link rel="stylesheet" href="../styles/modal.css">
+    <link rel="stylesheet" href="../styles/addNewClient.css">
+</head>
+
+<body>
+    <div id="main-div">
+        <div id="form-filter">
+            <input type="text" name="nameComponent" id="nameComponent" placeholder="Nome do componente"
+                onchange="applyFilter()">
+            <div class="labelPlusInput">
+                <label for="orderBySelect">Ordenar por:</label>
+                <select name="orderBySelect" id="orderBySelect" onchange="applyFilter()">
+                    <option value="name">Nome</option>
+                    <option value="firstDate">Data de entrada</option>
+                </select>
+            </div>
+            <button class="buttonGreen" onclick="toAddNewClient()">NOVO CLIENTE</button>
+        </div>
+        <table>
+            <thead>
+                <tr id="first-tr">
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Equipamento</th>
+                    <th>Orçamento</th>
+                    <th>Data de Entrada</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+        <div id="divPagination"></div>
+    </div>
+    <div class="modal" id="addNewClient">
+        <div class="modalBody" id="modalClient">
+            <div id="titleCardClient">
+                <h3 class="pDisplayNoBlock">CLIENTE Nº</h3>
+                <h3 id="idClient" class="pDisplayNoBlock">6</h3>
+            </div>
+            <div id="formsAddClient">
+                <div>
+                    <div class="noMargin">
+                        <label for="firstDate">Date de Entrada:</label>
+                        <input type="date" id="firstDate" name="firstDate">
+                    </div>
+                    <div class="noMargin">
+                        <label for="lastDate">Date de Saída:</label>
+                        <input type="date" id="lastDate" name="lastDate">
+                    </div>
+                </div>
+                <div>
+                    <input type="text" placeholder="Nome" id="nameClient">
+                </div>
+                <div>
+                    <input type="text" placeholder="Telefone" id="foneClient" onKeyPress="mascara()" maxLength="15">
+                    <input type="text" placeholder="Cidade" id="cityClient">
+                    <input type="text" placeholder="Endereço" id="localClient">
+                </div>
+                <div>
+                    <input type="text" placeholder="Equipamento" id="equipment">
+                    <input type="number" placeholder="Orçamento" id="equipmentBudget">
+                    <input type="text" placeholder="Marca/Modelo" id="equipmentModel">
+                    <input type="text" placeholder="Defeito" id="equipmentDefect">
+                </div>
+                <textarea placeholder="Avaliação Técnica" id="equipmentTechnicalEvaluationt"></textarea>
+            </div>
+            <div class="divButton">
+                <button onclick="addNewClient()" class="buttonGreen" id="addButton">ADICIONAR</button>
+                <button onclick="editClient()" class="buttonGreen none" id="editButton">SALVAR
+                    ALTERAÇÕES</button>
+                <button onclick="changeStatusModal('#addNewClient')" class="buttonRed">FECHAR</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="mensageModal">
+        <div class="modalBody">
+            <h3 id="textMensage"></h3>
+            <button onclick="changeStatusModal('#mensageModal')" class="buttonGreen">OK</button>
+        </div>
+    </div>
+</body>
+<script src="../js/pagination.js"></script>
+<script src="../js/clientsControl.js"></script>
+
+</html>

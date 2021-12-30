@@ -1,3 +1,5 @@
+const numberPagination = 2
+
 function setNewPagination(id) {
 
     const oldPagination = document.querySelector("#paginationSelected");
@@ -21,7 +23,7 @@ function applyPagination(arrayResult) {
 
 function createButtonsPagiantion(number) {
     const divPagination = document.querySelector("#divPagination");
-    let limit = Math.floor(number / (numberPagination + 1)) + 1
+    let limit = Math.floor(number / (numberPagination)) + 1
 
     divPagination.innerHTML = '';
 
