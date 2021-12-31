@@ -17,6 +17,8 @@
         <div id="form-filter">
             <input type="text" name="nameComponent" id="nameComponent" placeholder="Nome do componente"
                 onchange="applyFilter()">
+            <input type="text" name="nameLocal" id="nameLocal" placeholder="Nome da gaveta do componente"
+                onchange="applyFilter()">
             <div class="labelPlusInput">
                 <label for="orderBySelect">Ordenar por:</label>
                 <select name="orderBySelect" id="orderBySelect" onchange="applyFilter()">
@@ -35,7 +37,6 @@
                     <th>Nome</th>
                     <th>Quantidade</th>
                     <th>Local</th>
-                    <th>Descrição</th>
                     <th>Última atualização do estoque</th>
                     <th>Ações</th>
                 </tr>

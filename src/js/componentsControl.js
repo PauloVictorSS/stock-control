@@ -81,14 +81,16 @@ function arrayToTableListHTML(arrayResult) {
 
         for (const key in arrayResult[i]) {
 
-            let td = tr.insertCell()
+            if (key != 'description') {
+                let td = tr.insertCell()
 
-            td.setAttribute('id', key + '_' + arrayResult[i].id)
+                td.setAttribute('id', key + '_' + arrayResult[i].id)
 
-            if (key != 'lastUpdate')
-                td.innerText = arrayResult[i][key];
-            else
-                td.innerText = arrayResult[i][key].toLocaleString();
+                if (key != 'lastUpdate')
+                    td.innerText = arrayResult[i][key];
+                else
+                    td.innerText = arrayResult[i][key].toLocaleString();
+            }
         }
 
         let td = tr.insertCell();
@@ -115,11 +117,13 @@ function arrayToTableListHTML(arrayResult) {
 function applyFilter() {
 
     const searchName = document.querySelector("#nameComponent");
+    const localName = document.querySelector("#nameLocal");
     const orderBySelector = document.querySelector("#orderBySelect");
 
     const result = exampleComponents.filter((component) => {
 
-        return component.name.toLowerCase().includes(searchName.value.toLowerCase());
+        return component.name.toLowerCase().includes(searchName.value.toLowerCase()) &&
+            component.local.toLowerCase().includes(localName.value.toLowerCase());
     })
 
     result.sort((a, b) => {
