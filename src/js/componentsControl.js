@@ -65,9 +65,7 @@ const exampleComponents = [
     }
 ]
 
-const numberPagination = 3
 let arrayFilted = []
-
 
 function arrayToTableListHTML(arrayResult) {
 

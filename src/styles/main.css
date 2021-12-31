@@ -5,9 +5,7 @@
     --color-primary-text: #c0b283;
     --color-shadow: #1f1f1f;
     --color-button-add: rgb(35, 122, 35);
-    --color-button-add-secundary: rgb(36, 138, 36);
     --color-button-delete: rgb(255, 62, 62);
-    --color-button-delete-secundary: rgb(245, 21, 21);
 }
 
 *{
@@ -87,8 +85,8 @@ button.none{
 }
 .buttonGreen:hover{
 
-    background-color: var(--color-button-add-secundary);
-    color: white;
+    background-color: white;
+    color: var(--color-button-add);
 }
 
 .buttonRed{
@@ -98,6 +96,26 @@ button.none{
 }
 .buttonRed:hover{
 
-    background-color: var(--color-button-delete-secundary);
+    background-color: white;
+    color: var(--color-button-delete);
+}
+
+#divButtonBack{
+
+    width: 95%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+#divButtonBack button{
+
+    font-weight: 600;
+    color: var(--color-primary-text);
+    background-color: white;
+}
+
+#divButtonBack button:hover{
+
     color: white;
+    background-color: var(--color-primary-text);
 }

@@ -16,7 +16,7 @@
 <body>
     <div id="main-div">
         <div id="form-filter">
-            <input type="text" name="nameComponent" id="nameComponent" placeholder="Nome do componente"
+            <input type="text" name="nameComponent" id="nameComponent" placeholder="Nome do cliente"
                 onchange="applyFilter()">
             <div class="labelPlusInput">
                 <label for="orderBySelect">Ordenar por:</label>
@@ -42,6 +42,11 @@
             <tbody id="tbody"></tbody>
         </table>
         <div id="divPagination"></div>
+        <div id="divButtonBack">
+            <a href="../index.html">
+                <button>Voltar para tela anterior</button>
+            </a>
+        </div>
     </div>
     <div class="modal" id="addNewClient">
         <div class="modalBody" id="modalClient">

@@ -27,5 +27,7 @@
 
 #main-div .option-control:hover{
 
+    color: white;
+    background-color: var(--color-primary-text);
     box-shadow: 0 6px 6px 0 var(--color-shadow);
 }

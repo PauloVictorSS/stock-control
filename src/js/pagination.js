@@ -22,8 +22,14 @@ function applyPagination(arrayResult) {
 }
 
 function createButtonsPagiantion(number) {
+
+    let limit = 1;
     const divPagination = document.querySelector("#divPagination");
-    let limit = Math.floor(number / (numberPagination)) + 1
+
+    if (number % numberPagination != 0)
+        limit = Math.floor(number / numberPagination) + 1
+    else
+        limit = number / numberPagination
 
     divPagination.innerHTML = '';
 
