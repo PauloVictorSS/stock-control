@@ -81,7 +81,7 @@ function arrayToTableListHTML(arrayResult) {
 
         for (const key in arrayResult[i]) {
 
-            if (key != 'description') {
+            if (key != 'description' && (key != 'id')) {
                 let td = tr.insertCell()
 
                 td.setAttribute('id', key + '_' + arrayResult[i].id)

@@ -4,8 +4,8 @@ const { app, BrowserWindow } = require('electron')
 const createWindow = async () => {
 
     let mainWindow = new BrowserWindow({
-        minWidth: 600,
-        width: 900,
+        minWidth: 950,
+        width: 950,
         height: 600
     })
 
