@@ -1,12 +1,12 @@
-import { db, setCollection, getAllDocs, addDocument, setDocument, documentFirebase, deleteDocument } from "../config/firebase.js"
+import { db, collection, getDocs, addDoc, setDoc, doc, deleteDoc } from "../../config/firebase.js"
 
 let allComponents = []
 let arrayFilted = []
 
 async function getAllComponents() {
 
-    const componentsCol = setCollection(db, 'components');
-    const componentSnapshot = await getAllDocs(componentsCol);
+    const componentsCol = collection(db, 'components');
+    const componentSnapshot = await getDocs(componentsCol);
 
     allComponents = componentSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 }
@@ -162,7 +162,7 @@ async function addNewComponent() {
             lastUpdate: new Date()
         }
 
-        await addDocument(setCollection(db, "components"), newComponent);
+        await addDoc(collection(db, "components"), newComponent);
         document.querySelector("#textMensage").innerText = "Componente adicionado com sucesso!";
 
         applyFilter();
@@ -192,7 +192,7 @@ async function editComponent() {
             lastUpdate: new Date()
         }
 
-        await setDocument(documentFirebase(db, "components", id), newComponent);
+        await setDoc(doc(db, "components", id), newComponent);
         document.querySelector("#textMensage").innerText = "Componente editado com sucesso!";
 
         applyFilter();
@@ -207,7 +207,7 @@ async function editComponent() {
 
 async function deleteComponent(id) {
 
-    await deleteDocument(documentFirebase(db, "components", id));
+    await deleteDoc(doc(db, "components", id));
     window.location.reload();
 }
 
