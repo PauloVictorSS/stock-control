@@ -4,13 +4,18 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "set NODE_ENV=dev && electron ."
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "electron": "^16.0.5",
-    "firebase": "^9.6.1"
+    "firebase": "^9.6.1",
+    "firebase-admin": "^10.0.1"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0"
   }
 }

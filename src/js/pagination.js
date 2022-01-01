@@ -1,6 +1,6 @@
-const numberPagination = 2
+const numberPagination = 10
 
-function setNewPagination(id) {
+function setNewPagination(id, arrayFilted, toTableListComponents) {
 
     const oldPagination = document.querySelector("#paginationSelected");
     const newPagination = document.querySelector(id);
@@ -8,10 +8,10 @@ function setNewPagination(id) {
     oldPagination.removeAttribute('id')
     newPagination.setAttribute('id', 'paginationSelected');
 
-    applyPagination(arrayFilted)
+    applyPagination(arrayFilted, toTableListComponents)
 }
 
-function applyPagination(arrayResult) {
+function applyPagination(arrayResult, arrayToTableListHTML) {
 
     const paginationSelected = document.querySelector("#paginationSelected");
 
@@ -21,8 +21,9 @@ function applyPagination(arrayResult) {
     arrayToTableListHTML(newArray);
 }
 
-function createButtonsPagiantion(number) {
+function createButtonsPagiantion(arrayFilted, toTableListComponents) {
 
+    const number = arrayFilted.length
     let limit = 1;
     const divPagination = document.querySelector("#divPagination");
 
@@ -41,7 +42,7 @@ function createButtonsPagiantion(number) {
         newButton.setAttribute('value', cont);
         newButton.setAttribute('class', 'buttonPagination');
         newButton.setAttribute('class', 'id' + cont);
-        newButton.addEventListener('click', () => { setNewPagination('.id' + cont) });
+        newButton.addEventListener('click', () => { setNewPagination('.id' + cont, arrayFilted, toTableListComponents) });
 
         if (cont == 1)
             newButton.setAttribute('id', 'paginationSelected');

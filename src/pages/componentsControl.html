@@ -15,19 +15,17 @@
 <body>
     <div id="main-div">
         <div id="form-filter">
-            <input type="text" name="nameComponent" id="nameComponent" placeholder="Nome do componente"
-                onchange="applyFilter()">
-            <input type="text" name="nameLocal" id="nameLocal" placeholder="Nome da gaveta do componente"
-                onchange="applyFilter()">
+            <input type="text" name="nameComponent" id="nameComponent" placeholder="Nome do componente">
+            <input type="text" name="nameLocal" id="nameLocal" placeholder="Nome da gaveta do componente">
             <div class="labelPlusInput">
                 <label for="orderBySelect">Ordenar por:</label>
-                <select name="orderBySelect" id="orderBySelect" onchange="applyFilter()">
+                <select name="orderBySelect" id="orderBySelect">
                     <option value="name">Nome</option>
                     <option value="qtd">Quantidade</option>
                     <option value="lastUpdate">Última atualização</option>
                 </select>
             </div>
-            <button class="buttonGreen" onclick="toAddNewComponent()">NOVO
+            <button class="buttonGreen" id="toAddNewComponent">NOVO
                 COMPONENTE</button>
         </div>
         <table>
@@ -36,6 +34,7 @@
                     <th>Nome</th>
                     <th>Quantidade</th>
                     <th>Local</th>
+                    <th>Descrição</th>
                     <th>Última atualização do estoque</th>
                     <th>Ações</th>
                 </tr>
@@ -59,9 +58,9 @@
                 <textarea placeholder="Descrição" id="descriptionAddInput"></textarea>
             </div>
             <div class="divButton">
-                <button onclick="addNewComponent()" class="buttonGreen" id="addButton">ADICIONAR</button>
-                <button onclick="editComponent()" class="buttonGreen none" id="editButton">SALVAR ALTERAÇÕES</button>
-                <button onclick="changeStatusModal('#addNewComponent')" class="buttonRed">FECHAR</button>
+                <button class="buttonGreen" id="addButton">ADICIONAR</button>
+                <button class="buttonGreen none" id="editButton">SALVAR ALTERAÇÕES</button>
+                <button class="buttonRed" id="closeFirstModal">FECHAR</button>
             </div>
         </div>
     </div>
@@ -69,11 +68,11 @@
     <div class="modal" id="mensageModal">
         <div class="modalBody">
             <h3 id="textMensage"></h3>
-            <button onclick="changeStatusModal('#mensageModal')" class="buttonGreen">OK</button>
+            <button class="buttonGreen" id="changeMensageModal">OK</button>
         </div>
     </div>
 </body>
+<script src="../js/componentsControl.js" type="module"></script>
 <script src="../js/pagination.js"></script>
-<script src="../js/componentsControl.js"></script>
 
 </html>
