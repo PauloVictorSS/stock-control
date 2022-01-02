@@ -83,7 +83,6 @@ function applyFilter() {
 
     arrayFilted = result;
 
-
     createButtonsPagiantion(arrayFilted, toTableListComponents)
 
     if (arrayFilted.length > 0) {
@@ -116,10 +115,9 @@ function toAddNewClient() {
 
     document.querySelector("#idClient").innerText = allClients.length + 1;
 
-    let allInputs = document.querySelectorAll("div#formsAddClient input, div#formsAddClient textarea");
+    const allInputs = document.querySelectorAll("div#formsAddClient input, div#formsAddClient textarea");
 
     allInputs.forEach(input => {
-
         input.value = "";
     });
 
@@ -135,7 +133,6 @@ function toEditClient(client) {
     const allInputs = document.querySelectorAll("div#formsAddClient input, div#formsAddClient textarea");
 
     allInputs.forEach(input => {
-
         input.value = client[input.id];
     });
 
@@ -153,12 +150,10 @@ async function addNewClient() {
     let newClient = {};
 
     allInputs.forEach(input => {
-
         newClient[input.id] = input.value
     });
 
     await setDoc(doc(db, "clients", id), newClient);
-    document.querySelector("#textMensage").innerText = "Cliente adicionado com sucesso!";
 
     applyFilter();
     window.location.reload();
@@ -172,12 +167,10 @@ async function editClient() {
     let newClient = {};
 
     allInputs.forEach(input => {
-
         newClient[input.id] = input.value
     });
 
     await setDoc(doc(db, "clients", id), newClient);
-    document.querySelector("#textMensage").innerText = "Cliente editado com sucesso!";
     window.location.reload();
 }
 
@@ -226,12 +219,9 @@ function setAllEventsListeners() {
     addButton.addEventListener('click', addNewClient);
     editButton.addEventListener('click', editClient);
 
-    //Setando os liteners dos botões de abrir/fechar os modais
+    //Setando os liteners dos botões de abrir/fechar o modal
     const closeFirstModalButton = document.querySelector('#closeFirstModal');
-    const changeMensageModalButton = document.querySelector('#changeMensageModal');
-
     closeFirstModalButton.addEventListener('click', () => { changeStatusModal('#addNewClient') });
-    changeMensageModalButton.addEventListener('click', () => { changeStatusModal('#mensageModal') });
 }
 
 await getAllClients()

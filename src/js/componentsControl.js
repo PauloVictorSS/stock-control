@@ -27,7 +27,6 @@ function toTableListComponents(arrayWithPaginations) {
         tr.setAttribute('id', component.id);
 
         properties.forEach(property => {
-
             let td = tr.insertCell()
             td.setAttribute('id', property + '_' + component.id)
 
@@ -40,13 +39,13 @@ function toTableListComponents(arrayWithPaginations) {
         let buttonEdit = document.createElement('button');
         let buttonDelete = document.createElement('button');
 
-        buttonEdit.innerText = "Editar"
+        buttonEdit.innerText = "Visualizar"
         buttonDelete.innerText = "Deletar"
 
         buttonEdit.setAttribute('class', 'buttonGreen');
         buttonDelete.setAttribute('class', 'buttonRed');
 
-        buttonEdit.addEventListener('click', () => { toEditComponent(component.id) });
+        buttonEdit.addEventListener('click', () => { toEditComponent(component) });
         buttonDelete.addEventListener('click', () => { deleteComponent(component.id) });
 
         td.appendChild(buttonEdit);
@@ -63,7 +62,6 @@ function applyFilter() {
     const orderBySelector = document.querySelector("#orderBySelect");
 
     let result = allComponents.filter((component) => {
-
         return component.name.toLowerCase().includes(searchName.value.toLowerCase()) &&
             component.local.toLowerCase().includes(localName.value.toLowerCase());
     })
@@ -101,23 +99,6 @@ function applyFilter() {
     }
 }
 
-function toEditComponent(id) {
-
-    document.querySelector("#titleCardComponent").innerText = "EDITAR COMPONENTE"
-
-    document.querySelector("#nameAddInput").value = document.querySelector('#' + 'name_' + id).innerText;
-    document.querySelector("#qtdAddInput").value = document.querySelector('#' + 'qtd_' + id).innerText;
-    document.querySelector("#localAddInput").value = document.querySelector('#' + 'local_' + id).innerText;
-    document.querySelector("#descriptionAddInput").value = document.querySelector('#' + 'description_' + id).innerText;
-
-    document.querySelector("#editButton").setAttribute('class', 'buttonGreen');
-    document.querySelector("#addButton").setAttribute('class', 'buttonGreen none');
-
-    document.querySelector("#editButton").value = id;
-
-    changeStatusModal('#addNewComponent')
-}
-
 function changeStatusModal(modal) {
 
     const modalAddNewComponent = document.querySelector(modal);
@@ -133,11 +114,11 @@ function changeStatusModal(modal) {
 function toAddNewComponent() {
 
     document.querySelector("#titleCardComponent").innerText = "NOVO COMPONENTE"
+    let allInputs = document.querySelectorAll("div#addNewComponent input, div#addNewComponent textarea");
 
-    document.querySelector("#nameAddInput").value = "";
-    document.querySelector("#qtdAddInput").value = "";
-    document.querySelector("#localAddInput").value = "";
-    document.querySelector("#descriptionAddInput").value = "";
+    allInputs.forEach(input => {
+        input.value = "";
+    });
 
     document.querySelector("#addButton").setAttribute('class', 'buttonGreen');
     document.querySelector("#editButton").setAttribute('class', 'buttonGreen none');
@@ -145,64 +126,58 @@ function toAddNewComponent() {
     changeStatusModal('#addNewComponent')
 }
 
+function toEditComponent(component) {
+
+    document.querySelector("#titleCardComponent").innerText = "EDITAR COMPONENTE"
+    const allInputs = document.querySelectorAll("div#addNewComponent input, div#addNewComponent textarea");
+
+    allInputs.forEach(input => {
+        input.value = component[input.id];
+    });
+
+    document.querySelector("#editButton").setAttribute('class', 'buttonGreen');
+    document.querySelector("#addButton").setAttribute('class', 'buttonGreen none');
+
+    document.querySelector("#editButton").value = component.id;
+
+    changeStatusModal('#addNewComponent')
+}
+
 async function addNewComponent() {
 
-    const name = document.querySelector("#nameAddInput").value;
-    const qtd = document.querySelector("#qtdAddInput").value;
-    const local = document.querySelector("#localAddInput").value;
-    const description = document.querySelector("#descriptionAddInput").value;
+    const allInputs = document.querySelectorAll("div#addNewComponent input, div#addNewComponent textarea");
 
-    if (name != "" || qtd != "" || local != "" || description != "") {
+    let newComponent = {};
 
-        const newComponent = {
-            name,
-            qtd,
-            local,
-            description,
-            lastUpdate: new Date()
-        }
+    allInputs.forEach(input => {
+        newComponent[input.id] = input.value;
+    });
 
-        await addDoc(collection(db, "components"), newComponent);
-        document.querySelector("#textMensage").innerText = "Componente adicionado com sucesso!";
+    newComponent.lastUpdate = new Date()
 
-        applyFilter();
-        window.location.reload();
-    }
-    else {
-        document.querySelector("#textMensage").innerText = "Preencha algum campos";
-    }
-    changeStatusModal("#mensageModal");
+    await addDoc(collection(db, "components"), newComponent);
+
+    applyFilter();
+    window.location.reload();
 }
 
 async function editComponent() {
 
     const id = document.querySelector("#editButton").value
-    const name = document.querySelector("#nameAddInput").value;
-    const qtd = document.querySelector("#qtdAddInput").value;
-    const local = document.querySelector("#localAddInput").value;
-    const description = document.querySelector("#descriptionAddInput").value;
+    const allInputs = document.querySelectorAll("div#addNewComponent input, div#addNewComponent textarea");
 
-    if (name != "" || qtd != "" || local != "" || description != "") {
+    let newComponent = {};
 
-        const newComponent = {
-            name,
-            qtd,
-            local,
-            description,
-            lastUpdate: new Date()
-        }
+    allInputs.forEach(input => {
+        newComponent[input.id] = input.value;
+    });
 
-        await setDoc(doc(db, "components", id), newComponent);
-        document.querySelector("#textMensage").innerText = "Componente editado com sucesso!";
+    newComponent.lastUpdate = new Date()
 
-        applyFilter();
-        window.location.reload();
-    }
-    else {
-        document.querySelector("#textMensage").innerText = "Não deixei nenhum campo vazio";
-    }
+    await setDoc(doc(db, "components", id), newComponent);
 
-    changeStatusModal("#mensageModal");
+    applyFilter();
+    window.location.reload();
 }
 
 async function deleteComponent(id) {
@@ -233,12 +208,9 @@ function setAllEventsListeners() {
     addButton.addEventListener('click', addNewComponent);
     editButton.addEventListener('click', editComponent);
 
-    //Setando os liteners dos botões de abrir/fechar os modais
+    //Setando os liteners dos botões de abrir/fechar o modal
     const closeFirstModalButton = document.querySelector('#closeFirstModal');
-    const changeMensageModalButton = document.querySelector('#changeMensageModal');
-
     closeFirstModalButton.addEventListener('click', () => { changeStatusModal('#addNewComponent') });
-    changeMensageModalButton.addEventListener('click', () => { changeStatusModal('#mensageModal') });
 }
 
 await getAllComponents()
