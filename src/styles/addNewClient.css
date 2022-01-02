@@ -2,29 +2,29 @@
 
     width: 90%;
     max-width: 1000px;
-    height: 500px;
+    height: 600px;
 }
 
 .modalBody#modalClient #formsAddClient input{
     border: 1px solid rgb(61, 61, 61);
-    width: 22%;
+    width: 75%;
 }
-.modalBody#modalClient #formsAddClient input#nameClient{
-    width: 100%;
-}
-.modalBody#modalClient #formsAddClient input#localClient{
-    width: 50%;
+.modalBody#modalClient #formsAddClient input#name,
+.modalBody#modalClient #formsAddClient input#local{
+    width: 92%;
 }
 .modalBody#modalClient #formsAddClient input#firstDate,
 .modalBody#modalClient #formsAddClient input#lastDate{
     width: 300px;
 }
-
-.modalBody#modalClient #formsAddClient label{
-    margin-right: 8px;
+.modalBody#modalClient #formsAddClient input#accessories,
+.modalBody#modalClient #formsAddClient input#equipment,
+.modalBody#modalClient #formsAddClient input#budget,
+.modalBody#modalClient #formsAddClient input#fone{
+    width: 65%;
 }
 
-.modalBody#modalClient #formsAddClient div{
+.modalBody#modalClient #formsAddClient div.flex{
 
     margin: 20px 0;
 

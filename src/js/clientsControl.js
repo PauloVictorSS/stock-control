@@ -1,119 +1,53 @@
-const exampleClients = [
-    {
-        id: 1,
-        name: "Fulano",
-        fone: "(19) 98317-3555",
-        city: "Hortolândia",
-        address: "Rua Vitor Hugo José de Souza, 115",
-        equipment: "Televisão",
-        budget: 100.0,
-        model: "Samsung",
-        defect: "Só fica em preto e branco",
-        technicalEvaluationt: "está assim pq...",
-        firstDate: new Date(),
-        lastDate: new Date()
-    },
-    {
-        id: 2,
-        name: "Ciclano",
-        fone: "(19) 98317-3555",
-        city: "Hortolândia",
-        address: "Rua Vitor Hugo José de Souza, 115",
-        equipment: "Televisão",
-        budget: 100.0,
-        model: "Samsung",
-        defect: "Só fica em preto e branco",
-        technicalEvaluationt: "está assim pq...",
-        firstDate: new Date(),
-        lastDate: new Date()
-    },
-    {
-        id: 3,
-        name: "Beltrano",
-        fone: "(19) 98317-3555",
-        city: "Hortolândia",
-        address: "Rua Vitor Hugo José de Souza, 115",
-        equipment: "Televisão",
-        budget: 100.0,
-        model: "Samsung",
-        defect: "Só fica em preto e branco",
-        technicalEvaluationt: "está assim pq...",
-        firstDate: new Date(),
-        lastDate: new Date()
-    },
-    {
-        id: 4,
-        name: "Cliente 01562",
-        fone: "(19) 98317-3555",
-        city: "Hortolândia",
-        address: "Rua Vitor Hugo José de Souza, 115",
-        equipment: "Televisão",
-        budget: 100.0,
-        model: "Samsung",
-        defect: "Só fica em preto e branco",
-        technicalEvaluationt: "está assim pq...",
-        firstDate: new Date(),
-        lastDate: new Date()
-    },
-    {
-        id: 5,
-        name: "Cliente Teste",
-        fone: "(19) 98317-3555",
-        city: "Hortolândia",
-        address: "Rua Vitor Hugo José de Souza, 115",
-        equipment: "Televisão",
-        budget: 100.0,
-        model: "Samsung",
-        defect: "Só fica em preto e branco",
-        technicalEvaluationt: "está assim pq...",
-        firstDate: new Date(),
-        lastDate: new Date()
-    }
-]
+import { db, collection, getDocs, setDoc, doc, deleteDoc } from "../../config/firebase.js"
 
-let arrayFilted = []
+let allClients = [];
+let arrayFilted = [];
 
-function arrayToTableListHTML(arrayResult) {
+async function getAllClients() {
+
+    const clientsCol = collection(db, 'clients');
+    const clientSnapshot = await getDocs(clientsCol);
+
+    allClients = clientSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+}
+
+function toTableListComponents(arrayWithPaginations) {
 
     const tbody = document.querySelector('#tbody');
     let newTBody = document.createElement('tbody');
 
     newTBody.setAttribute('id', 'tbody')
 
-    for (let i = 0; i < arrayResult.length; i++) {
+    for (let i = 0; i < arrayWithPaginations.length; i++) {
+
+        const component = arrayWithPaginations[i];
+        const properties = ['id', 'name', 'fone', 'equipment', 'budget', 'firstDate'];
 
         let tr = newTBody.insertRow();
-        tr.setAttribute('id', arrayResult[i].id)
+        tr.setAttribute('id', component.id);
 
-        for (const key in arrayResult[i]) {
+        properties.forEach(property => {
 
-            if (key == 'id' || key == 'name' || key == 'fone' || key == 'equipment' || key == 'budget' || key == 'firstDate') {
+            let td = tr.insertCell()
+            td.setAttribute('id', property + '_' + component.id)
 
-                let td = tr.insertCell()
-
-                if (key != 'firstDate')
-                    if (key == 'budget')
-                        td.innerText = 'R$ ' + arrayResult[i][key];
-                    else
-                        td.innerText = arrayResult[i][key];
-                else
-                    td.innerText = arrayResult[i][key].toLocaleDateString();
-            }
-        }
+            td.innerText = (property != 'firstDate') ? component[property] : component.firstDate.split('-').reverse().join('/');
+        });
 
         let td = tr.insertCell();
+        td.setAttribute('class', 'buttonTD');
+
         let buttonEdit = document.createElement('button');
         let buttonDelete = document.createElement('button');
 
-        buttonEdit.innerText = "Editar"
+        buttonEdit.innerText = "Visualizar"
         buttonDelete.innerText = "Deletar"
 
-        td.setAttribute('class', 'buttonTD');
         buttonEdit.setAttribute('class', 'buttonGreen');
         buttonDelete.setAttribute('class', 'buttonRed');
 
-        buttonEdit.addEventListener('click', () => { toEditClient(arrayResult[i]) });
-        buttonDelete.addEventListener('click', () => { deleteComponent(arrayResult[i].id) });
+        buttonEdit.addEventListener('click', () => { toEditClient(component) });
+        buttonDelete.addEventListener('click', () => { deleteClient(component.id) });
 
         td.appendChild(buttonEdit);
         td.appendChild(buttonDelete);
@@ -127,7 +61,7 @@ function applyFilter() {
     const searchName = document.querySelector("#nameComponent");
     const orderBySelector = document.querySelector("#orderBySelect");
 
-    const result = exampleClients.filter((component) => {
+    const result = allClients.filter((component) => {
 
         return component.name.toLowerCase().includes(searchName.value.toLowerCase());
     })
@@ -149,15 +83,21 @@ function applyFilter() {
 
     arrayFilted = result;
 
-    createButtonsPagiantion(arrayFilted.length)
 
-    const oldPagination = document.querySelector("#paginationSelected");
-    const newPagination = document.querySelector(".id1");
+    createButtonsPagiantion(arrayFilted, toTableListComponents)
 
-    oldPagination.removeAttribute('id')
-    newPagination.setAttribute('id', 'paginationSelected');
+    if (arrayFilted.length > 0) {
+        const oldPagination = document.querySelector("#paginationSelected");
+        const newPagination = document.querySelector(".id1");
 
-    applyPagination(arrayFilted);
+        oldPagination.removeAttribute('id')
+        newPagination.setAttribute('id', 'paginationSelected');
+
+        applyPagination(arrayFilted, toTableListComponents);
+    }
+    else {
+        toTableListComponents(arrayFilted);
+    }
 }
 
 function changeStatusModal(text) {
@@ -172,62 +112,16 @@ function changeStatusModal(text) {
         modalAddNewClient.setAttribute('class', 'modal show');
 }
 
-function addNewClient() {
-
-    const id = document.querySelector("#idClient").innerText;
-    const firstDate = document.querySelector("#firstDate").value;
-    const lastDate = document.querySelector("#lastDate").value;
-
-    const name = document.querySelector("#nameClient").value;
-
-    const fone = document.querySelector("#foneClient").value;
-    const city = document.querySelector("#cityClient").value;
-    const address = document.querySelector("#localClient").value;
-
-    const equipment = document.querySelector("#equipment").value;
-    const budget = document.querySelector("#equipmentBudget").value;
-    const model = document.querySelector("#equipmentModel").value;
-    const defect = document.querySelector("#equipmentDefect").value;
-    const technicalEvaluationt = document.querySelector("#equipmentTechnicalEvaluationt").value;
-
-    exampleClients.push({
-        id,
-        name,
-        fone,
-        city,
-        address,
-        equipment,
-        budget,
-        model,
-        defect,
-        technicalEvaluationt,
-        firstDate,
-        lastDate
-    });
-    document.querySelector("#textMensage").innerText = "Cliente adicionado com sucesso!";
-
-    applyFilter();
-    changeStatusModal("#addNewClient");
-    changeStatusModal("#mensageModal");
-}
-
 function toAddNewClient() {
 
-    document.querySelector("#idClient").innerText = exampleClients.length + 1;
-    document.querySelector("#firstDate").value = "";
-    document.querySelector("#lastDate").value = "";
+    document.querySelector("#idClient").innerText = allClients.length + 1;
 
-    document.querySelector("#nameClient").value = "";
+    let allInputs = document.querySelectorAll("div#formsAddClient input, div#formsAddClient textarea");
 
-    document.querySelector("#foneClient").value = "";
-    document.querySelector("#cityClient").value = "";
-    document.querySelector("#localClient").value = "";
+    allInputs.forEach(input => {
 
-    document.querySelector("#equipment").value = "";
-    document.querySelector("#equipmentBudget").value = "";
-    document.querySelector("#equipmentModel").value = "";
-    document.querySelector("#equipmentDefect").value = "";
-    document.querySelector("#equipmentTechnicalEvaluationt").value = "";
+        input.value = "";
+    });
 
     document.querySelector("#addButton").setAttribute('class', 'buttonGreen');
     document.querySelector("#editButton").setAttribute('class', 'buttonGreen none');
@@ -237,23 +131,13 @@ function toAddNewClient() {
 
 function toEditClient(client) {
 
-    console.log(client.firstDate.toLocaleDateString());
-
     document.querySelector("#idClient").innerText = client.id;
-    document.querySelector("#firstDate").value = client.firstDate.toLocaleDateString();
-    document.querySelector("#lastDate").value = client.lastDate.toLocaleDateString();
+    const allInputs = document.querySelectorAll("div#formsAddClient input, div#formsAddClient textarea");
 
-    document.querySelector("#nameClient").value = client.name;
+    allInputs.forEach(input => {
 
-    document.querySelector("#foneClient").value = client.fone;
-    document.querySelector("#cityClient").value = client.city;
-    document.querySelector("#localClient").value = client.address;
-
-    document.querySelector("#equipment").value = client.equipment;
-    document.querySelector("#equipmentBudget").value = client.budget;
-    document.querySelector("#equipmentModel").value = client.model;
-    document.querySelector("#equipmentDefect").value = client.defect;
-    document.querySelector("#equipmentTechnicalEvaluationt").value = client.technicalEvaluationt;
+        input.value = client[input.id];
+    });
 
     document.querySelector("#editButton").setAttribute('class', 'buttonGreen');
     document.querySelector("#addButton").setAttribute('class', 'buttonGreen none');
@@ -261,54 +145,50 @@ function toEditClient(client) {
     changeStatusModal('#addNewClient')
 }
 
-
-function editClient() {
+async function addNewClient() {
 
     const id = document.querySelector("#idClient").innerText;
-    const firstDate = document.querySelector("#firstDate").value;
-    const lastDate = document.querySelector("#lastDate").value;
+    const allInputs = document.querySelectorAll("div#formsAddClient input, div#formsAddClient textarea");
 
-    const name = document.querySelector("#nameClient").value;
+    let newClient = {};
 
-    const fone = document.querySelector("#foneClient").value;
-    const city = document.querySelector("#cityClient").value;
-    const address = document.querySelector("#localClient").value;
+    allInputs.forEach(input => {
 
-    const equipment = document.querySelector("#equipment").value;
-    const budget = document.querySelector("#equipmentBudget").value;
-    const model = document.querySelector("#equipmentModel").value;
-    const defect = document.querySelector("#equipmentDefect").value;
-    const technicalEvaluationt = document.querySelector("#equipmentTechnicalEvaluationt").value;
-
-    console.log({
-        id,
-        name,
-        fone,
-        city,
-        address,
-        equipment,
-        budget,
-        model,
-        defect,
-        technicalEvaluationt,
-        firstDate,
-        lastDate
+        newClient[input.id] = input.value
     });
-    document.querySelector("#textMensage").innerText = "Cliente editado com sucesso!";
+
+    await setDoc(doc(db, "clients", id), newClient);
+    document.querySelector("#textMensage").innerText = "Cliente adicionado com sucesso!";
 
     applyFilter();
-
-    changeStatusModal("#addNewClient");
-    changeStatusModal("#mensageModal");
+    window.location.reload();
 }
 
-function deleteComponent(id) {
-    console.log(`Deletei: ${id}`);
+async function editClient() {
+
+    const id = document.querySelector("#idClient").innerText;
+    const allInputs = document.querySelectorAll("div#formsAddClient input, div#formsAddClient textarea");
+
+    let newClient = {};
+
+    allInputs.forEach(input => {
+
+        newClient[input.id] = input.value
+    });
+
+    await setDoc(doc(db, "clients", id), newClient);
+    document.querySelector("#textMensage").innerText = "Cliente editado com sucesso!";
+    window.location.reload();
+}
+
+async function deleteClient(id) {
+    await deleteDoc(doc(db, "clients", id));
+    window.location.reload();
 }
 
 function mascara() {
 
-    let telefone = document.querySelector("#foneClient")
+    let telefone = document.querySelector("#fone")
     let v = telefone.value
 
     v = v.replace(/\D/g, "")
@@ -319,7 +199,41 @@ function mascara() {
     else if (telefone.value.length === 15)
         v = v.replace(/(\d{5})(\d)/, "$1-$2")
 
-    document.querySelector("#foneClient").value = v
+    document.querySelector("#fone").value = v
 }
 
+function setAllEventsListeners() {
+
+    //Setando os liteners referentes aos campos de pesquisa
+    const inputNameClient = document.querySelector('#nameComponent');
+    const selectOrderBySelect = document.querySelector('#orderBySelect');
+
+    inputNameClient.addEventListener('change', applyFilter);
+    selectOrderBySelect.addEventListener('change', applyFilter);
+
+    //Setando o litener do botão de abrir o modal de adicionar cliente
+    const toAddNewClientButton = document.querySelector('#toAddNewClient');
+    toAddNewClientButton.addEventListener('click', toAddNewClient);
+
+    //Setando o listener para a máscara do input de telefone
+    const foneClientInput = document.querySelector('#fone');
+    foneClientInput.addEventListener('keypress', mascara);
+
+    //Setando os liteners dos botões de adicionar e editar determinado cliente
+    const addButton = document.querySelector('#addButton');
+    const editButton = document.querySelector('#editButton');
+
+    addButton.addEventListener('click', addNewClient);
+    editButton.addEventListener('click', editClient);
+
+    //Setando os liteners dos botões de abrir/fechar os modais
+    const closeFirstModalButton = document.querySelector('#closeFirstModal');
+    const changeMensageModalButton = document.querySelector('#changeMensageModal');
+
+    closeFirstModalButton.addEventListener('click', () => { changeStatusModal('#addNewClient') });
+    changeMensageModalButton.addEventListener('click', () => { changeStatusModal('#mensageModal') });
+}
+
+await getAllClients()
 applyFilter()
+setAllEventsListeners()

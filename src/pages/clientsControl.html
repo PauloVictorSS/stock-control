@@ -8,7 +8,6 @@
     <title>Sistema de Controle de Estoque e Clientes</title>
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/componentsControl.css">
-    <link rel="stylesheet" href="../styles/clientsControl.css">
     <link rel="stylesheet" href="../styles/modal.css">
     <link rel="stylesheet" href="../styles/addNewClient.css">
 </head>
@@ -16,16 +15,15 @@
 <body>
     <div id="main-div">
         <div id="form-filter">
-            <input type="text" name="nameComponent" id="nameComponent" placeholder="Nome do cliente"
-                onchange="applyFilter()">
+            <input type="text" name="nameComponent" id="nameComponent" placeholder="Nome do cliente">
             <div class="labelPlusInput">
                 <label for="orderBySelect">Ordenar por:</label>
-                <select name="orderBySelect" id="orderBySelect" onchange="applyFilter()">
+                <select name="orderBySelect" id="orderBySelect">
                     <option value="name">Nome</option>
                     <option value="firstDate">Data de entrada</option>
                 </select>
             </div>
-            <button class="buttonGreen" onclick="toAddNewClient()">NOVO CLIENTE</button>
+            <button class="buttonGreen" id="toAddNewClient">NOVO CLIENTE</button>
         </div>
         <table>
             <thead>
@@ -55,7 +53,7 @@
                 <h3 id="idClient" class="pDisplayNoBlock">6</h3>
             </div>
             <div id="formsAddClient">
-                <div>
+                <div class="flex">
                     <div class="noMargin">
                         <label for="firstDate">Date de Entrada:</label>
                         <input type="date" id="firstDate" name="firstDate">
@@ -65,27 +63,62 @@
                         <input type="date" id="lastDate" name="lastDate">
                     </div>
                 </div>
-                <div>
-                    <input type="text" placeholder="Nome" id="nameClient">
+                <div class="flex">
+                    <label for="nameClient">Nome:</label>
+                    <input type="text" name="nameClient" placeholder="Nome" id="name">
                 </div>
-                <div>
-                    <input type="text" placeholder="Telefone" id="foneClient" onKeyPress="mascara()" maxLength="15">
-                    <input type="text" placeholder="Cidade" id="cityClient">
-                    <input type="text" placeholder="Endereço" id="localClient">
+                <div class="flex">
+                    <div class="divLabelPlusInput">
+                        <label for="foneClient">Telefone:</label>
+                        <input type="text" name="foneClient" placeholder="Telefone" id="fone" maxLength="15">
+                    </div>
+                    <div class="divLabelPlusInput">
+                        <label for="foneClient">Cidade:</label>
+                        <input type="cityClient" name="cityClient" placeholder="Cidade" id="city">
+                    </div>
+                    <div class="divLabelPlusInput">
+                        <label for="districtClient">Bairro:</label>
+                        <input type="text" name="districtClient" placeholder="Bairro" id="district">
+                    </div>
                 </div>
-                <div>
-                    <input type="text" placeholder="Equipamento" id="equipment">
-                    <input type="number" placeholder="Orçamento" id="equipmentBudget">
-                    <input type="text" placeholder="Marca/Modelo" id="equipmentModel">
-                    <input type="text" placeholder="Defeito" id="equipmentDefect">
+                <div class="flex">
+                    <label for="localClient">Endereço:</label>
+                    <input type="text" name="localClient" placeholder="Endereço" id="local">
                 </div>
-                <textarea placeholder="Avaliação Técnica" id="equipmentTechnicalEvaluationt"></textarea>
+                <div class="flex">
+                    <div class="divLabelPlusInput">
+                        <label for="equipment">Equipamento:</label>
+                        <input type="text" name="equipment" placeholder="Equipamento" id="equipment">
+                    </div>
+                    <div class="divLabelPlusInput">
+                        <label for="equipmentBrand">Marca:</label>
+                        <input type="text" name="equipmentBrand" placeholder="Marca" id="brand">
+                    </div>
+                    <div class="divLabelPlusInput">
+                        <label for="equipmentModel">Modelo:</label>
+                        <input type="text" name="equipmentModel" placeholder="Modelo" id="model">
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="divLabelPlusInput">
+                        <label for="accessories">Acessórios:</label>
+                        <input type="text" name="accessories" placeholder="Acessórios" id="accessories">
+                    </div>
+                    <div class="divLabelPlusInput">
+                        <label for="equipmentBudget">Orçamento:</label>
+                        <input type="number" name="equipmentBudget" placeholder="Orçamento" id="budget">
+                    </div>
+                    <div class="divLabelPlusInput">
+                        <label for="equipmentDefect">Defeito:</label>
+                        <input type="text" name="equipmentDefect" placeholder="Defeito" id="defect">
+                    </div>
+                </div>
+                <textarea placeholder="Avaliação Técnica" id="technicalEvaluationt"></textarea>
             </div>
             <div class="divButton">
-                <button onclick="addNewClient()" class="buttonGreen" id="addButton">ADICIONAR</button>
-                <button onclick="editClient()" class="buttonGreen none" id="editButton">SALVAR
-                    ALTERAÇÕES</button>
-                <button onclick="changeStatusModal('#addNewClient')" class="buttonRed">FECHAR</button>
+                <button class="buttonGreen" id="addButton">ADICIONAR</button>
+                <button class="buttonGreen none" id="editButton">SALVAR ALTERAÇÕES</button>
+                <button id="closeFirstModal" class="buttonRed">FECHAR</button>
             </div>
         </div>
     </div>
@@ -93,11 +126,11 @@
     <div class="modal" id="mensageModal">
         <div class="modalBody">
             <h3 id="textMensage"></h3>
-            <button onclick="changeStatusModal('#mensageModal')" class="buttonGreen">OK</button>
+            <button class="buttonGreen" id="changeMensageModal">OK</button>
         </div>
     </div>
 </body>
+<script src="../js/clientsControl.js" type="module"></script>
 <script src="../js/pagination.js"></script>
-<script src="../js/clientsControl.js"></script>
 
 </html>
