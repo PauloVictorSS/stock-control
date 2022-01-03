@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Controle de Estoque e Clientes</title>
+    <title>Sistema de Busca</title>
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/componentsControl.css">
     <link rel="stylesheet" href="../styles/modal.css">
@@ -14,9 +14,25 @@
 
 <body>
     <div id="main-div">
+        <div id="divButtonBack">
+            <a href="../index.html">
+                <img src="../../back.png" alt="voltar">
+                <button>Voltar para tela anterior</button>
+            </a>
+        </div>
+        <div id="divTitulo">
+            <img src="../../banner.png" alt="ES Eletrônica">
+        </div>
+        <h3 id="h3Title">Busca de Componentes</h3>
         <div id="form-filter">
-            <input type="text" name="nameComponent" id="nameComponent" placeholder="Nome do componente">
-            <input type="text" name="nameLocal" id="nameLocal" placeholder="Nome da gaveta do componente">
+            <div>
+                <label for="nameComponent">Nome: </label>
+                <input type="text" name="nameComponent" id="nameComponent" placeholder="Nome do componente">
+            </div>
+            <div>
+                <label for="nameLocal">Gaveta: </label>
+                <input type="text" name="nameLocal" id="nameLocal" placeholder="Gaveta">
+            </div>
             <div class="labelPlusInput">
                 <label for="orderBySelect">Ordenar por:</label>
                 <select name="orderBySelect" id="orderBySelect">
@@ -27,7 +43,7 @@
             </div>
             <button class="buttonGreen" id="toAddNewComponent">NOVO COMPONENTE</button>
         </div>
-        <table>
+        <table class="none">
             <thead>
                 <tr id="first-tr">
                     <th>Nome</th>
@@ -40,12 +56,7 @@
             </thead>
             <tbody id="tbody"></tbody>
         </table>
-        <div id="divPagination"></div>
-        <div id="divButtonBack">
-            <a href="../index.html">
-                <button>Voltar para tela anterior</button>
-            </a>
-        </div>
+        <div id="divPagination" class="none"></div>
     </div>
     <div class="modal" id="addNewComponent">
         <div class="modalBody">

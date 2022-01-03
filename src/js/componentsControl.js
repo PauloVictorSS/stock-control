@@ -61,41 +61,56 @@ function applyFilter() {
     const localName = document.querySelector("#nameLocal");
     const orderBySelector = document.querySelector("#orderBySelect");
 
-    let result = allComponents.filter((component) => {
-        return component.name.toLowerCase().includes(searchName.value.toLowerCase()) &&
-            component.local.toLowerCase().includes(localName.value.toLowerCase());
-    })
+    if (searchName.value != "" || localName.value != "") {
 
-    result.sort((a, b) => {
-        if (orderBySelector.value == "name") {
-            if (a.name.toLowerCase() < b.name.toLowerCase())
-                return -1;
-            else
-                return true;
+        const table = document.querySelector("table");
+        const divPagination = document.querySelector("div#divPagination");
+        table.setAttribute("class", "");
+        divPagination.setAttribute("class", "");
+
+        let result = allComponents.filter((component) => {
+            return component.name.toLowerCase().includes(searchName.value.toLowerCase()) &&
+                component.local.toLowerCase().includes(localName.value.toLowerCase());
+        })
+
+        result.sort((a, b) => {
+            if (orderBySelector.value == "name") {
+                if (a.name.toLowerCase() < b.name.toLowerCase())
+                    return -1;
+                else
+                    return true;
+            }
+            else {
+                if (a[orderBySelector.value] > b[orderBySelector.value])
+                    return -1;
+                else
+                    return true;
+            }
+        });
+
+        arrayFilted = result;
+
+        createButtonsPagiantion(arrayFilted, toTableListComponents)
+
+        if (arrayFilted.length > 0) {
+            const oldPagination = document.querySelector("#paginationSelected");
+            const newPagination = document.querySelector(".id1");
+
+            oldPagination.removeAttribute('id')
+            newPagination.setAttribute('id', 'paginationSelected');
+
+            applyPagination(arrayFilted, toTableListComponents);
         }
         else {
-            if (a[orderBySelector.value] > b[orderBySelector.value])
-                return -1;
-            else
-                return true;
+            toTableListComponents(arrayFilted);
         }
-    });
-
-    arrayFilted = result;
-
-    createButtonsPagiantion(arrayFilted, toTableListComponents)
-
-    if (arrayFilted.length > 0) {
-        const oldPagination = document.querySelector("#paginationSelected");
-        const newPagination = document.querySelector(".id1");
-
-        oldPagination.removeAttribute('id')
-        newPagination.setAttribute('id', 'paginationSelected');
-
-        applyPagination(arrayFilted, toTableListComponents);
     }
     else {
-        toTableListComponents(arrayFilted);
+
+        const table = document.querySelector("table");
+        const divPagination = document.querySelector("div#divPagination");
+        table.setAttribute("class", "none");
+        divPagination.setAttribute("class", "none");
     }
 }
 
@@ -214,5 +229,4 @@ function setAllEventsListeners() {
 }
 
 await getAllComponents()
-applyFilter()
 setAllEventsListeners()

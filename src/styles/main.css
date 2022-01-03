@@ -1,6 +1,6 @@
 :root {
     
-    --color-background: #373737;
+    --color-background: #272727;
     --color-background-tc: #f4f4f4;
     --color-primary-text: #c0b283;
     --color-shadow: #1f1f1f;
@@ -42,6 +42,10 @@ table{
     margin: 20px auto;
 
     text-align: center;
+}
+
+.none{
+    display: none !important;
 }
 
 td, th{
@@ -102,20 +106,43 @@ button.none{
 
 #divButtonBack{
 
-    width: 95%;
-    max-width: 900px;
-    margin: 0 auto;
+    background-color: #1f1f1f;
+    width: 100%;
+    margin: 0;
+    padding: 5px 25px;
+}
+
+#divButtonBack a{
+    
+    display: flex;
+    align-items: center;
+    width: 250px;
+}
+
+#divButtonBack img{
+
+    width: 50px;
 }
 
 #divButtonBack button{
-
-    font-weight: 600;
-    color: var(--color-primary-text);
-    background-color: white;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    background: none;
 }
 
-#divButtonBack button:hover{
+/**/
 
-    color: white;
-    background-color: var(--color-primary-text);
+div#divTitulo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+div#divTitulo img{
+    width: 400px;
+}
+
+#h3Title{
+    text-align: center;
+    margin: 20px 0 0;
 }
