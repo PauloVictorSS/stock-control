@@ -8,7 +8,7 @@ const createWindow = async () => {
         minHeight: 750,
         height: 750,
         autoHideMenuBar: true,
-        icon: __dirname + "/logo.png"
+        icon: __dirname + "/src/img/logo.png"
     })
 
     mainWindow.loadURL(`file://${__dirname}/src/index.html`)
