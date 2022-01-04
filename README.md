@@ -11,3 +11,7 @@ A segunda parte desse sistema tem a ideia de ser um histórico de clientes:
 - Posterior consulta de um determinado cliente e suas informações;
 
 Sobre as tecnologias, foi usado o ElectronJS para criar as interfaces do usuário + o Firebase para armazenar os dados na nuvem.
+
+### Para rodar a aplicação
+
+Para rodar a aplicação, é necessário criar uma pasta na raiz do projeto `./config/firebase.js` junto com um arquivo `firebase.js`. Nesse arquivo você pode importar o Firebase e fazer a configuração básica como diz na [Documentação do Firebase](https://firebase.google.com/docs/web/setup#add-sdks-initialize). Após isso, você pode dar um `export {...}` nas funções e valores que serão utilizados nos `.js` da aplicação. Nesse caso, `export { getDocs, setDoc, addDoc, collection, deleteDoc, doc }` (todos importados do firebase). Esse arquivo será importado no `./src/js/componentsControl.js` e `./src/js/clientsControl.js`;
