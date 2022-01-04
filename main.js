@@ -5,7 +5,9 @@ const createWindow = async () => {
     let mainWindow = new BrowserWindow({
         minWidth: 950,
         width: 950,
-        height: 600,
+        minHeight: 750,
+        height: 750,
+        autoHideMenuBar: true,
         icon: __dirname + "/logo.png"
     })
 

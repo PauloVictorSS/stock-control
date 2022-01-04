@@ -1,4 +1,4 @@
-const numberPagination = 10
+const numberPagination = 6
 
 function setNewPagination(id, arrayFilted, toTableListComponents) {
 

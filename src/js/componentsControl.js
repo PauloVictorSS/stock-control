@@ -69,8 +69,14 @@ function applyFilter() {
         divPagination.setAttribute("class", "");
 
         let result = allComponents.filter((component) => {
-            return component.name.toLowerCase().includes(searchName.value.toLowerCase()) &&
-                component.local.toLowerCase().includes(localName.value.toLowerCase());
+
+            if (searchName.value == "")
+                return (component.local.toLowerCase() == localName.value.toLowerCase());
+            else if (localName.value == "")
+                return (component.name.toLowerCase().includes(searchName.value.toLowerCase()) || component.description.toLowerCase().includes(searchName.value.toLowerCase()));
+            else
+                return (component.local.toLowerCase().includes(localName.value.toLowerCase())) &&
+                    (component.name.toLowerCase().includes(searchName.value.toLowerCase()) || component.description.toLowerCase().includes(searchName.value.toLowerCase()));
         })
 
         result.sort((a, b) => {
