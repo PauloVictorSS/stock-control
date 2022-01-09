@@ -56,9 +56,12 @@
     </div>
     <div class="modal" id="addNewClient">
         <div class="modalBody" id="modalClient">
-            <div id="titleCardClient">
-                <h3 class="pDisplayNoBlock">CLIENTE Nº</h3>
-                <h3 id="idClient" class="pDisplayNoBlock">6</h3>
+            <div id="divFlexTitleAdd">
+                <img src="../img/bannerBlack.png" alt="ES Eletrônica">
+                <div id="titleCardClient">
+                    <h2 class="pDisplayNoBlock">Ordem de Serviço Nº</h2>
+                    <h2 id="idClient" class="pDisplayNoBlock">6</h2>
+                </div>
             </div>
             <div id="formsAddClient">
                 <div class="flex">
@@ -90,10 +93,10 @@
                     </div>
                 </div>
                 <div class="flex">
-                    <label for="localClient">Endereço:</label>
-                    <input type="text" name="localClient" placeholder="Endereço" id="local">
-                </div>
-                <div class="flex">
+                    <div class="divLabelPlusInput">
+                        <label for="localClient">Endereço:</label>
+                        <input type="text" name="localClient" placeholder="Endereço" id="local">
+                    </div>
                     <div class="divLabelPlusInput">
                         <label for="equipment">Equipamento:</label>
                         <input type="text" name="equipment" placeholder="Equipamento" id="equipment">
@@ -102,12 +105,12 @@
                         <label for="equipmentBrand">Marca:</label>
                         <input type="text" name="equipmentBrand" placeholder="Marca" id="brand">
                     </div>
+                </div>
+                <div class="flex">
                     <div class="divLabelPlusInput">
                         <label for="equipmentModel">Modelo:</label>
                         <input type="text" name="equipmentModel" placeholder="Modelo" id="model">
                     </div>
-                </div>
-                <div class="flex">
                     <div class="divLabelPlusInput">
                         <label for="accessories">Acessórios:</label>
                         <input type="text" name="accessories" placeholder="Acessórios" id="accessories">
@@ -116,10 +119,10 @@
                         <label for="equipmentBudget">Orçamento:</label>
                         <input type="number" name="equipmentBudget" placeholder="Orçamento" id="budget">
                     </div>
-                    <div class="divLabelPlusInput">
-                        <label for="equipmentDefect">Defeito:</label>
-                        <input type="text" name="equipmentDefect" placeholder="Defeito" id="defect">
-                    </div>
+                </div>
+                <div class="flex">
+                    <label for="equipmentDefect">Defeito:</label>
+                    <input type="text" name="equipmentDefect" placeholder="Defeito" id="defect">
                 </div>
                 <textarea placeholder="Avaliação Técnica" id="technicalEvaluationt"></textarea>
             </div>

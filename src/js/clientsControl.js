@@ -128,7 +128,15 @@ function changeStatusModal(text) {
 
 function toAddNewClient() {
 
-    document.querySelector("#idClient").innerText = allClients.length + 1;
+    let newIdClient = 0;
+
+    allClients.forEach(currentClient => {
+
+        if (currentClient.id >= newIdClient)
+            newIdClient = parseInt(currentClient.id) + 1;
+    });
+
+    document.querySelector("#idClient").innerText = newIdClient;
 
     const allInputs = document.querySelectorAll("div#formsAddClient input, div#formsAddClient textarea");
 

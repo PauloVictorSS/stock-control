@@ -7,7 +7,6 @@ const createWindow = async () => {
         width: 950,
         minHeight: 750,
         height: 750,
-        autoHideMenuBar: true,
         icon: __dirname + "/src/img/logo.png"
     })
 

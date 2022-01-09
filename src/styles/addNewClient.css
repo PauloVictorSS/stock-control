@@ -2,7 +2,18 @@
 
     width: 90%;
     max-width: 1000px;
-    height: 600px;
+    height: 650px;
+}
+
+#divFlexTitleAdd{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 50px;
+}
+
+#divFlexTitleAdd img{
+    height: 120px;
 }
 
 .modalBody#modalClient #formsAddClient input{
@@ -10,8 +21,8 @@
     width: 75%;
 }
 .modalBody#modalClient #formsAddClient input#name,
-.modalBody#modalClient #formsAddClient input#local{
-    width: 92%;
+.modalBody#modalClient #formsAddClient input#defect{
+    width: 93%;
 }
 .modalBody#modalClient #formsAddClient input#firstDate,
 .modalBody#modalClient #formsAddClient input#lastDate{
@@ -20,7 +31,8 @@
 .modalBody#modalClient #formsAddClient input#accessories,
 .modalBody#modalClient #formsAddClient input#equipment,
 .modalBody#modalClient #formsAddClient input#budget,
-.modalBody#modalClient #formsAddClient input#fone{
+.modalBody#modalClient #formsAddClient input#fone,
+.modalBody#modalClient #formsAddClient input#local{
     width: 65%;
 }
 
