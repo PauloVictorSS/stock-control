@@ -33,6 +33,11 @@ select{
     padding: 5px;
 }
 
+select{
+    min-width: 100px;
+    border: 1px solid rgb(61, 61, 61);
+}
+
 /* Referente as tabelas */
 table{
     width: 95%;

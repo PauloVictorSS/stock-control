@@ -49,6 +49,7 @@
                     <th>Equipamento</th>
                     <th>Orçamento</th>
                     <th>Data de Entrada</th>
+                    <th>Aprovado?</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -76,50 +77,59 @@
                         <input type="date" id="lastDate" name="lastDate">
                     </div>
                 </div>
-                <div class="flex">
-                    <label for="nameClient">Nome:</label>
-                    <input type="text" name="nameClient" placeholder="Nome" id="name">
-                </div>
-                <div class="flex">
+                <div id="grid2">
+                    <div class="divLabelPlusInput">
+                        <label for="nameClient">Nome:</label>
+                        <input type="text" name="nameClient" placeholder="Nome" id="name">
+                    </div>
                     <div class="divLabelPlusInput">
                         <label for="foneClient">Telefone:</label>
                         <input type="text" name="foneClient" placeholder="Telefone" id="fone" maxLength="15">
                     </div>
-                    <div class="divLabelPlusInput">
+                </div>
+                <div class="grid">
+                    <div class="divLabelPlusInput first">
                         <label for="foneClient">Cidade:</label>
                         <input type="cityClient" name="cityClient" placeholder="Cidade" id="city">
                     </div>
-                    <div class="divLabelPlusInput">
+                    <div class="divLabelPlusInput second">
                         <label for="districtClient">Bairro:</label>
                         <input type="text" name="districtClient" placeholder="Bairro" id="district">
                     </div>
-                </div>
-                <div class="flex">
-                    <div class="divLabelPlusInput">
+                    <div class="divLabelPlusInput third">
                         <label for="localClient">Endereço:</label>
                         <input type="text" name="localClient" placeholder="Endereço" id="local">
                     </div>
-                    <div class="divLabelPlusInput">
+                </div>
+                <div class="grid">
+                    <div class="divLabelPlusInput first">
                         <label for="equipment">Equipamento:</label>
                         <input type="text" name="equipment" placeholder="Equipamento" id="equipment">
                     </div>
-                    <div class="divLabelPlusInput">
+                    <div class="divLabelPlusInput second">
                         <label for="equipmentBrand">Marca:</label>
                         <input type="text" name="equipmentBrand" placeholder="Marca" id="brand">
                     </div>
-                </div>
-                <div class="flex">
-                    <div class="divLabelPlusInput">
+                    <div class="divLabelPlusInput third">
                         <label for="equipmentModel">Modelo:</label>
                         <input type="text" name="equipmentModel" placeholder="Modelo" id="model">
                     </div>
-                    <div class="divLabelPlusInput">
+                </div>
+                <div class="grid">
+                    <div class="divLabelPlusInput first">
                         <label for="accessories">Acessórios:</label>
                         <input type="text" name="accessories" placeholder="Acessórios" id="accessories">
                     </div>
-                    <div class="divLabelPlusInput">
+                    <div class="divLabelPlusInput second">
                         <label for="equipmentBudget">Orçamento:</label>
                         <input type="number" name="equipmentBudget" placeholder="Orçamento" id="budget">
+                    </div>
+                    <div class="divLabelPlusInput third">
+                        <label for="approval">Orçamento aprovado:</label>
+                        <select name="approval" id="approval">
+                            <option value="Não">Não</option>
+                            <option value="Sim">Sim</option>
+                        </select>
                     </div>
                 </div>
                 <div class="flex">

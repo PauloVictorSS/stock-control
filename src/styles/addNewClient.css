@@ -18,22 +18,6 @@
 
 .modalBody#modalClient #formsAddClient input{
     border: 1px solid rgb(61, 61, 61);
-    width: 75%;
-}
-.modalBody#modalClient #formsAddClient input#name,
-.modalBody#modalClient #formsAddClient input#defect{
-    width: 93%;
-}
-.modalBody#modalClient #formsAddClient input#firstDate,
-.modalBody#modalClient #formsAddClient input#lastDate{
-    width: 300px;
-}
-.modalBody#modalClient #formsAddClient input#accessories,
-.modalBody#modalClient #formsAddClient input#equipment,
-.modalBody#modalClient #formsAddClient input#budget,
-.modalBody#modalClient #formsAddClient input#fone,
-.modalBody#modalClient #formsAddClient input#local{
-    width: 65%;
 }
 
 .modalBody#modalClient #formsAddClient div.flex{
@@ -43,6 +27,64 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.modalBody#modalClient #formsAddClient div.grid{
+
+    margin: 20px 0;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;   
+    grid-column-gap: 20px;
+}
+
+.modalBody#modalClient #formsAddClient div.divLabelPlusInput{
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div#formsAddClient div#grid2{
+    
+    margin: 20px 0;
+
+    display: grid;
+    grid-template-columns: 2.06fr 1fr;   
+    grid-column-gap: 20px;
+}
+
+input#defect{
+    width: 93%;
+}
+
+input#name{
+    width: 90%;
+}
+
+div.divLabelPlusInput #district,
+div.divLabelPlusInput #brand,
+div.divLabelPlusInput #city{
+    width: 81%;
+}
+
+div.divLabelPlusInput #local,
+div.divLabelPlusInput #model,
+div.divLabelPlusInput #fone{
+    width: 75%;
+}
+
+div.divLabelPlusInput #accessories,
+div.divLabelPlusInput #budget{
+    width: 72%;
+}
+
+div.divLabelPlusInput #equipment{
+    width: 68%;
+}
+
+div.divLabelPlusInput #approval{
+    width: 50%;
 }
 
 .modalBody#modalClient #formsAddClient div.noMargin{

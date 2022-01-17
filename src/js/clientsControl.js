@@ -21,7 +21,7 @@ function toTableListComponents(arrayWithPaginations) {
     for (let i = 0; i < arrayWithPaginations.length; i++) {
 
         const component = arrayWithPaginations[i];
-        const properties = ['id', 'name', 'fone', 'equipment', 'budget', 'firstDate'];
+        const properties = ['id', 'name', 'fone', 'equipment', 'budget', 'firstDate', 'approval'];
 
         let tr = newTBody.insertRow();
         tr.setAttribute('id', component.id);
@@ -31,7 +31,10 @@ function toTableListComponents(arrayWithPaginations) {
             let td = tr.insertCell()
             td.setAttribute('id', property + '_' + component.id)
 
-            td.innerText = (property != 'firstDate') ? component[property] : component.firstDate.split('-').reverse().join('/');
+            if (component[property] != undefined)
+                td.innerText = (property != 'firstDate') ? component[property] : component.firstDate.split('-').reverse().join('/');
+            else
+                td.innerText = "Sem valor";
         });
 
         let td = tr.insertCell();
@@ -144,6 +147,9 @@ function toAddNewClient() {
         input.value = "";
     });
 
+    const select = document.querySelector("select#approval");
+    select.selectedIndex = 0
+
     document.querySelector("#addButton").setAttribute('class', 'buttonGreen');
     document.querySelector("#editButton").setAttribute('class', 'buttonGreen none');
 
@@ -158,6 +164,15 @@ function toEditClient(client) {
     allInputs.forEach(input => {
         input.value = client[input.id];
     });
+
+    if (client.approval != undefined) {
+        const select = document.querySelector("select#approval");
+
+        if (client.approval == "Não")
+            select.selectedIndex = 0
+        else
+            select.selectedIndex = 1
+    }
 
     document.querySelector("#editButton").setAttribute('class', 'buttonGreen');
     document.querySelector("#addButton").setAttribute('class', 'buttonGreen none');
@@ -176,6 +191,9 @@ async function addNewClient() {
         newClient[input.id] = input.value
     });
 
+    const select = document.querySelector("select#approval");
+    newClient.approval = select.opt[select.selectedIndex].value;
+
     await setDoc(doc(db, "clients", id), newClient);
 
     applyFilter();
@@ -192,6 +210,9 @@ async function editClient() {
     allInputs.forEach(input => {
         newClient[input.id] = input.value
     });
+
+    const select = document.querySelector("select#approval");
+    newClient.approval = select.options[select.selectedIndex].value;
 
     await setDoc(doc(db, "clients", id), newClient);
     window.location.reload();
