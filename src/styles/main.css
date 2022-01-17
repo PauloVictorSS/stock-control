@@ -104,27 +104,46 @@ button.none{
     color: var(--color-button-delete);
 }
 
-#divButtonBack{
+#divButtonMenu{
 
-    background-color: #1f1f1f;
+    background-color: black;
     width: 100%;
     margin: 0;
-    padding: 5px 25px;
+    padding: 10px 25px 0;
+
+    display: flex;
 }
 
-#divButtonBack a{
+#divButtonMenu a{
     
     display: flex;
     align-items: center;
-    width: 250px;
+    width: 200px;
+
+    text-decoration: none;
+    padding: 5px 10px;
+
+    color: white;
+    transition: .3s;
+
+    border-radius: 10px 10px 0 0;
+
+    border-top: 2px solid var(--color-background);
+    border-left: 2px solid var(--color-background);
+    border-right: 2px solid var(--color-background);
 }
 
-#divButtonBack img{
-
-    width: 50px;
+#divButtonMenu a + a{
+    margin-left: 5px;
 }
 
-#divButtonBack button{
+#divButtonMenu a.active,
+#divButtonMenu a:hover{
+    background-color: var(--color-background);
+    font-weight: 700;
+}
+
+#divButtonMenu button{
     font-size: 15px;
     font-weight: 700;
     color: white;
