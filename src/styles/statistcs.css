@@ -1,0 +1,35 @@
+.divDatas{
+
+    width: 550px;
+    margin: 20px auto;
+    padding: 10px;
+
+    background-color: var(--color-div-datas);
+
+    border-radius: 5px;
+    box-shadow: 0 4px 4px 4px var(--color-shadow);
+}
+
+.divDatas div#searchResults,
+.divDatas div#graphic{
+    margin: 0 auto;
+}
+
+.divDatas h3{
+    margin-top: 0;
+}
+
+.divDatas h3,
+.divDatas h4{
+    text-align: center;
+}
+
+.divDatas div#searchResults{
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+}

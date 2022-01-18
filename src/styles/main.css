@@ -1,9 +1,12 @@
 :root {
     
-    --color-background: #272727;
+    --color-background: #1c2030;
+    --color-menu: #f3f3f3;
+    --color-text-menu: black;
+    --color-primary-text: #e5e5e5;
     --color-background-tc: #f4f4f4;
-    --color-primary-text: #c0b283;
-    --color-shadow: #1f1f1f;
+    --color-div-datas: #79787e;
+    --color-shadow: #060606;
     --color-button-add: rgb(35, 122, 35);
     --color-button-delete: rgb(255, 62, 62);
 }
@@ -111,7 +114,7 @@ button.none{
 
 #divButtonMenu{
 
-    background-color: black;
+    background: var(--color-menu);
     width: 100%;
     margin: 0;
     padding: 10px 25px 0;
@@ -128,7 +131,7 @@ button.none{
     text-decoration: none;
     padding: 5px 10px;
 
-    color: white;
+    color: var(--color-text-menu);
     transition: .3s;
 
     border-radius: 10px 10px 0 0;
@@ -146,6 +149,7 @@ button.none{
 #divButtonMenu a:hover{
     background-color: var(--color-background);
     font-weight: 700;
+    color: white;
 }
 
 #divButtonMenu button{

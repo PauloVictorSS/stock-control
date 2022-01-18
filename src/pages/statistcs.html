@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Busca</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/componentsControl.css">
+    <link rel="stylesheet" href="../styles/statistcs.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+    <div id="main-div">
+        <div id="divButtonMenu">
+            <a href="./componentsControl.html" class="link">
+                Busca de Componente
+            </a>
+            <a href="./clientsControl.html" class="link">
+                Busca de Clientes
+            </a>
+            <a href="./statistcs.html" class="link active">
+                Consulta de dados
+            </a>
+        </div>
+        <div id="divTitulo">
+            <img src="../img/banner.png" alt="ES Eletrônica">
+        </div>
+        <h2 id="h3Title">Consulta de dados</h2>
+
+
+        <div id="contentProfitInPeriod" class="divDatas">
+            <h3>Lucro dentro de um período</h3>
+            <div id="searchResults">
+                <div>
+                    <label for="firstDate">Início:</label>
+                    <input type="date" id="firstDate" name="firstDate">
+                </div>
+                <div>
+                    <label for="lastDate">Fim:</label>
+                    <input type="date" id="lastDate" name="lastDate">
+                </div>
+                <button class="buttonGreen" id="toCreateGraphic">Pesquisar</button>
+            </div>
+
+            <div id="graphic"></div>
+        </div>
+    </div>
+</body>
+<script src="../js/statistcs.js" type="module"></script>
+
+</html>
