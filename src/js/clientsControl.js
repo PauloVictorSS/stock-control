@@ -70,8 +70,9 @@ function applyFilter() {
 
     const searchName = document.querySelector("#nameComponent");
     const orderBySelector = document.querySelector("#orderBySelect");
+    const selectFilterByApproval = document.querySelector('#filterByApproval');
 
-    if (searchName.value != "") {
+    if (searchName.value != "" || selectFilterByApproval.value != "") {
 
         const table = document.querySelector("table");
         const divPagination = document.querySelector("div#divPagination");
@@ -80,7 +81,10 @@ function applyFilter() {
 
         const result = allClients.filter((component) => {
 
-            return component.name.toLowerCase().includes(searchName.value.toLowerCase());
+            let filterName = (searchName.value != "") ? component.name.toLowerCase().includes(searchName.value.toLowerCase()) : true;
+            let filterApproval = (selectFilterByApproval.value != "") ? (component.approval == selectFilterByApproval.value) : true;
+
+            return filterName && filterApproval;
         })
 
         result.sort((a, b) => {
@@ -265,9 +269,11 @@ function setAllEventsListeners() {
     //Setando os liteners referentes aos campos de pesquisa
     const inputNameClient = document.querySelector('#nameComponent');
     const selectOrderBySelect = document.querySelector('#orderBySelect');
+    const selectFilterByApproval = document.querySelector('#filterByApproval');
 
     inputNameClient.addEventListener('change', applyFilter);
     selectOrderBySelect.addEventListener('change', applyFilter);
+    selectFilterByApproval.addEventListener('change', applyFilter);
 
     //Setando o litener do botão de abrir o modal de adicionar cliente
     const toAddNewClientButton = document.querySelector('#toAddNewClient');

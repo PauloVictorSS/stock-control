@@ -9,7 +9,7 @@ async function getAllClients() {
 
     allClients = clientSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 }
-function graphicProfitInPeriod() {
+function profitInPeriod() {
 
     const inputFirstDate = document.querySelector('#firstDate');
     const inputLastDate = document.querySelector('#lastDate');
@@ -18,11 +18,11 @@ function graphicProfitInPeriod() {
 
         let result = allClients.filter((client) => {
 
-            if (client.lastDate != "") {
+            if (client.lastDate != "" && client.budgetComponent != undefined) {
 
                 const isBiggerThanFirstDate = (inputFirstDate.value <= client.lastDate);
                 const isSmallerThanFirstDate = (client.lastDate <= inputLastDate.value);
-                const hasABudget = (client.budget != "" && client.budget != "0");
+                const hasABudget = (client.budgetLabor != "" && client.budgetComponent != "");
                 const isApproved = (client.approval == "Sim");
 
                 return isBiggerThanFirstDate && isSmallerThanFirstDate && hasABudget && isApproved;
@@ -32,20 +32,26 @@ function graphicProfitInPeriod() {
 
         if (result.length != 0) {
 
-            let total = 0;
+            let totalBudgetLabor = 0;
+            let totalBudgetComponent = 0
 
             result.forEach(element => {
-                total += parseInt(element.budget);
+                totalBudgetLabor += parseInt(element.budgetLabor);
+                totalBudgetComponent += parseInt(element.budgetComponent);
             });
 
-            addAMensageText('#contentProfitInPeriod #graphic', "Total de lucro obtido nesse período: R$" + total)
+            const text = "Custo em Mão-de-obra: R$ " + totalBudgetLabor +
+                "\nCusto em Componentes: R$ " + totalBudgetComponent +
+                "\nTotal de orçamento aprovado nesse período: R$ " + parseInt(totalBudgetLabor + totalBudgetComponent);
+
+            addAMensageText('#contentProfitInPeriod #infosResult', text)
         }
         else {
-            addAMensageText('#contentProfitInPeriod #graphic', 'Sem resultados para essa consulta')
+            addAMensageText('#contentProfitInPeriod #infosResult', 'Sem resultados para essa consulta')
         }
     }
     else {
-        addAMensageText('#contentProfitInPeriod #graphic', 'Preencha ambas as datas para fazer a consulta')
+        addAMensageText('#contentProfitInPeriod #infosResult', 'Preencha ambas as datas para fazer a consulta')
     }
 }
 
@@ -67,7 +73,7 @@ function addAMensageText(local, text) {
 function setAllEventsListeners() {
 
     const buttonCreateGraphic = document.querySelector('#toCreateGraphic');
-    buttonCreateGraphic.addEventListener('click', graphicProfitInPeriod);
+    buttonCreateGraphic.addEventListener('click', profitInPeriod);
 }
 
 await getAllClients()

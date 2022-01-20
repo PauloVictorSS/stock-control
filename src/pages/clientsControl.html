@@ -41,6 +41,14 @@
                     <option value="firstDate">Data de entrada</option>
                 </select>
             </div>
+            <div class="labelPlusInput">
+                <label for="filterByApproval">Aprovado:</label>
+                <select name="filterByApproval" id="filterByApproval">
+                    <option value=""></option>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+            </div>
             <button class="buttonGreen" id="toAddNewClient">NOVO CLIENTE</button>
         </div>
         <table class="none">
@@ -142,7 +150,6 @@
                             id="budgetComponent">
                     </div>
                     <div id="totalBudget">
-
                         <label><i>Custo total: R$ </i></label>
                         <label id="labelTotalBudget"><i>0</i></label>
                     </div>
