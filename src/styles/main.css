@@ -44,7 +44,7 @@ select{
 /* Referente as tabelas */
 table{
     width: 95%;
-    max-width: 900px;
+    max-width: 1000px;
 
     border-spacing: 0;
     margin: 20px auto;

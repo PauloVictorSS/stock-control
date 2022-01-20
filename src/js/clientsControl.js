@@ -31,8 +31,15 @@ function toTableListComponents(arrayWithPaginations) {
             let td = tr.insertCell()
             td.setAttribute('id', property + '_' + component.id)
 
-            if (component[property] != undefined)
-                td.innerText = (property != 'firstDate') ? component[property] : component.firstDate.split('-').reverse().join('/');
+            if (component[property] != undefined) {
+
+                if (property == "equipment")
+                    td.innerText = component[property] + " - " + ((component.brand != "") ? component.brand : "Não espefificada") + " - " + ((component.model != "") ? component.model : "Não espefificado")
+                else
+                    td.innerText = (property != 'firstDate') ? component[property] : component.firstDate.split('-').reverse().join('/');
+            }
+            else if (property == "budget")
+                td.innerText = parseInt(component.budgetLabor) + parseInt(component.budgetComponent);
             else
                 td.innerText = "Sem valor";
         });
@@ -191,8 +198,10 @@ async function addNewClient() {
         newClient[input.id] = input.value
     });
 
+    console.log(newClient);
+
     const select = document.querySelector("select#approval");
-    newClient.approval = select.opt[select.selectedIndex].value;
+    newClient.approval = select.options[select.selectedIndex].value;
 
     await setDoc(doc(db, "clients", id), newClient);
 
@@ -239,6 +248,18 @@ function mascara() {
     document.querySelector("#fone").value = v
 }
 
+function changeTotalBudget() {
+
+    const inputBudgetLabor = document.querySelector('#budgetLabor');
+    const inputBudgetComponent = document.querySelector('#budgetComponent');
+
+    let laborCost = (inputBudgetLabor.value != "") ? inputBudgetLabor.value : 0;
+    let componentsCost = (inputBudgetComponent.value != "") ? inputBudgetComponent.value : 0;
+
+    const labelTotalBudget = document.querySelector('#labelTotalBudget');
+    labelTotalBudget.innerHTML = parseInt(laborCost) + parseInt(componentsCost);
+}
+
 function setAllEventsListeners() {
 
     //Setando os liteners referentes aos campos de pesquisa
@@ -262,6 +283,13 @@ function setAllEventsListeners() {
 
     addButton.addEventListener('click', addNewClient);
     editButton.addEventListener('click', editClient);
+
+    //Setando os liteners dos input para se calcular o custo total
+    const inputBudgetLabor = document.querySelector('#budgetLabor');
+    const inputBudgetComponent = document.querySelector('#budgetComponent');
+
+    inputBudgetLabor.addEventListener('change', changeTotalBudget);
+    inputBudgetComponent.addEventListener('change', changeTotalBudget);
 
     //Setando os liteners dos botões de abrir/fechar o modal
     const closeFirstModalButton = document.querySelector('#closeFirstModal');

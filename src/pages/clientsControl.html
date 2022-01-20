@@ -49,7 +49,7 @@
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Telefone</th>
-                    <th>Equipamento</th>
+                    <th>Equipamento - Marca - Modelo</th>
                     <th>Orçamento</th>
                     <th>Data de Entrada</th>
                     <th>Aprovado?</th>
@@ -118,21 +118,33 @@
                         <input type="text" name="equipmentModel" placeholder="Modelo" id="model">
                     </div>
                 </div>
-                <div class="grid">
-                    <div class="divLabelPlusInput first">
+                <div id="grid2">
+                    <div class="divLabelPlusInput">
                         <label for="accessories">Acessórios:</label>
                         <input type="text" name="accessories" placeholder="Acessórios" id="accessories">
                     </div>
-                    <div class="divLabelPlusInput second">
-                        <label for="equipmentBudget">Orçamento:</label>
-                        <input type="number" name="equipmentBudget" placeholder="Orçamento" id="budget">
-                    </div>
-                    <div class="divLabelPlusInput third">
+                    <div class="divLabelPlusInput">
                         <label for="approval">Orçamento aprovado:</label>
                         <select name="approval" id="approval">
                             <option value="Não">Não</option>
                             <option value="Sim">Sim</option>
                         </select>
+                    </div>
+                </div>
+                <div class="grid" id="gridBudget">
+                    <div class="divLabelPlusInput second">
+                        <label for="budgetLabor">Custo da Mão-de-obra:</label>
+                        <input type="number" name="budgetLabor" placeholder="Custo de Mão-de-obra" id="budgetLabor">
+                    </div>
+                    <div class="divLabelPlusInput second">
+                        <label for="budgetComponent">Custo de componentes:</label>
+                        <input type="number" name="budgetComponent" placeholder="Custo de componentes"
+                            id="budgetComponent">
+                    </div>
+                    <div id="totalBudget">
+
+                        <label><i>Custo total: R$ </i></label>
+                        <label id="labelTotalBudget"><i>0</i></label>
                     </div>
                 </div>
                 <div class="flex">

@@ -2,7 +2,7 @@
 
     width: 90%;
     max-width: 1000px;
-    height: 650px;
+    height: 700px;
 }
 
 #divFlexTitleAdd{
@@ -64,7 +64,8 @@ input#name{
 
 div.divLabelPlusInput #district,
 div.divLabelPlusInput #brand,
-div.divLabelPlusInput #city{
+div.divLabelPlusInput #city,
+div.divLabelPlusInput #accessories{
     width: 81%;
 }
 
@@ -74,7 +75,6 @@ div.divLabelPlusInput #fone{
     width: 75%;
 }
 
-div.divLabelPlusInput #accessories,
 div.divLabelPlusInput #budget{
     width: 72%;
 }
@@ -96,6 +96,17 @@ div.divLabelPlusInput #approval{
 
     text-align: center;
     margin: 20px 0;
+}
+
+#totalBudget{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.modalBody#modalClient #formsAddClient div.grid#gridBudget{
+
+    grid-template-columns: 2fr 2fr 1fr;   
 }
 
 .pDisplayNoBlock{
