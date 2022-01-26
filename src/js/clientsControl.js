@@ -185,6 +185,12 @@ function toEditClient(client) {
             select.selectedIndex = 1
     }
 
+    let laborCost = (client.budgetLabor != "") ? client.budgetLabor : 0;
+    let componentsCost = (client.budgetComponent != "") ? client.budgetComponent : 0;
+
+    const labelTotalBudget = document.querySelector('#labelTotalBudget');
+    labelTotalBudget.innerHTML = parseInt(laborCost) + parseInt(componentsCost);
+
     document.querySelector("#editButton").setAttribute('class', 'buttonGreen');
     document.querySelector("#addButton").setAttribute('class', 'buttonGreen none');
 

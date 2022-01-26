@@ -1,7 +1,7 @@
 :root {
     
     --color-background: #1c2030;
-    --color-menu: #f3f3f3;
+    --color-menu: #fff;
     --color-text-menu: black;
     --color-primary-text: #e5e5e5;
     --color-background-tc: #f4f4f4;
@@ -44,7 +44,7 @@ select{
 /* Referente as tabelas */
 table{
     width: 95%;
-    max-width: 1000px;
+    max-width: 1200px;
 
     border-spacing: 0;
     margin: 20px auto;

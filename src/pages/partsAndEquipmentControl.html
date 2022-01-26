@@ -15,13 +15,13 @@
 <body>
     <div id="main-div">
         <div id="divButtonMenu">
-            <a href="./componentsControl.html" class="link active">
+            <a href="./componentsControl.html" class="link">
                 Busca de Componente
             </a>
             <a href="./clientsControl.html" class="link">
                 Busca de Clientes
             </a>
-            <a href="./partsAndEquipmentControl.html" class="link">
+            <a href="./partsAndEquipmentControl.html" class="link active">
                 Peças e Equipamentos
             </a>
             <a href="./statistcs.html" class="link">
@@ -31,34 +31,22 @@
         <div id="divTitulo">
             <img src="../img/banner.png" alt="ES Eletrônica">
         </div>
-        <h2 id="h3Title">Busca de Componentes</h2>
+        <h2 id="h3Title">Busca de Peças e Equipamentos</h2>
         <div id="form-filter">
-            <div>
-                <label for="nameComponent">Pesquisa: </label>
-                <input type="text" name="nameComponent" id="nameComponent" placeholder="Pesquise um componente">
+            <div id="divSearchInput">
+                <label for="searchInput">Pesquisa: </label>
+                <input type="text" name="searchInput" id="searchInput" placeholder="Tipo / Marca / Modelo">
             </div>
-            <div>
-                <label for="nameLocal">Gaveta: </label>
-                <input type="text" name="nameLocal" id="nameLocal" placeholder="Gaveta">
-            </div>
-            <div class="labelPlusInput">
-                <label for="orderBySelect">Ordenar por:</label>
-                <select name="orderBySelect" id="orderBySelect">
-                    <option value="name">Nome</option>
-                    <option value="qtd">Quantidade</option>
-                    <option value="lastUpdate">Última atualização</option>
-                </select>
-            </div>
-            <button class="buttonGreen" id="toAddNewComponent">NOVO COMPONENTE</button>
+            <button class="buttonGreen" id="toAddNewEquipament">NOVA PEÇA/EQUIPAMENTO</button>
         </div>
         <table class="none">
             <thead>
                 <tr id="first-tr">
-                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
                     <th>Quantidade</th>
-                    <th>Local</th>
-                    <th>Descrição</th>
-                    <th>Última atualização do estoque</th>
+                    <th>Aplicação</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -66,14 +54,15 @@
         </table>
         <div id="divPagination" class="none"></div>
     </div>
-    <div class="modal" id="addNewComponent">
+    <div class="modal" id="addNewEquipament">
         <div class="modalBody">
-            <h3 id="titleCardComponent">NOVO COMPONENTE</h3>
+            <h3 id="titleCardComponent">NOVA PEÇA/EQUIPAMENTO</h3>
             <div id="formsAddComponent">
-                <input type="text" placeholder="Nome" id="name">
+                <input type="text" placeholder="Tipo" id="type">
+                <input type="text" placeholder="Marca" id="brand">
+                <input type="text" placeholder="Modelo" id="model">
                 <input type="number" placeholder="Quantidade" id="qtd">
-                <input type="text" placeholder="Local de armazenamento" id="local">
-                <textarea placeholder="Descrição" id="description"></textarea>
+                <textarea placeholder="Aplicação" id="application"></textarea>
             </div>
             <div class="divButton">
                 <button class="buttonGreen" id="addButton">ADICIONAR</button>
@@ -83,7 +72,7 @@
         </div>
     </div>
 </body>
-<script src="../js/componentsControl.js" type="module"></script>
+<script src="../js/partsAndEquipmentControl.js" type="module"></script>
 <script src="../js/pagination.js"></script>
 
 </html>

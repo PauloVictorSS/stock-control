@@ -45,3 +45,11 @@
 
     margin-left: 20px;
 }
+
+#divSearchInput, #searchInput{
+    width: 75%;
+}
+
+#searchInput{
+    margin-left: 5px;
+}
