@@ -59,11 +59,11 @@
                 <tr id="first-tr">
                     <th>ID</th>
                     <th>Nome</th>
-                    <th>Telefone</th>
                     <th>Equipamento - Marca - Modelo</th>
                     <th>Orçamento</th>
                     <th>Data de Entrada</th>
                     <th>Aprovado?</th>
+                    <th>Status</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -129,7 +129,7 @@
                         <input type="text" name="equipmentModel" placeholder="Modelo" id="model">
                     </div>
                 </div>
-                <div id="grid2">
+                <div class="grid">
                     <div class="divLabelPlusInput">
                         <label for="accessories">Acessórios:</label>
                         <input type="text" name="accessories" placeholder="Acessórios" id="accessories">
@@ -140,6 +140,10 @@
                             <option value="Não">Não</option>
                             <option value="Sim">Sim</option>
                         </select>
+                    </div>
+                    <div class="divLabelPlusInput">
+                        <label for="status">Status Atual:</label>
+                        <input type="text" name="status" placeholder="Status do serviço" id="status">
                     </div>
                 </div>
                 <div class="grid" id="gridBudget">

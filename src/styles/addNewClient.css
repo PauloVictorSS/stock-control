@@ -75,7 +75,8 @@ div.divLabelPlusInput #fone{
     width: 75%;
 }
 
-div.divLabelPlusInput #budget{
+div.divLabelPlusInput #budget,
+div.divLabelPlusInput #status{
     width: 72%;
 }
 

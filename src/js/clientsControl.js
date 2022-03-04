@@ -11,6 +11,29 @@ async function getAllClients() {
     allClients = clientSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 }
 
+function insertACellOnComponentsTable(component, property, tr) {
+
+    let td = tr.insertCell()
+    td.setAttribute('id', property + '_' + component.id)
+
+    if (component[property] != undefined) {
+
+        if (property == "equipment")
+            td.innerText = component.equipment + " - " + ((component.brand != "") ? component.brand : "Não espefificada") + " - " + ((component.model != "") ? component.model : "Não espefificado")
+        else
+            td.innerText = (property != 'firstDate') ? component[property] : component.firstDate.split('-').reverse().join('/');
+    }
+    else if (property == "budget") {
+
+        if (component.budgetLabor != "" && component.budgetComponent != "")
+            td.innerText = parseInt(component.budgetLabor) + parseInt(component.budgetComponent);
+        else
+            td.innerText = "Sem valor";
+    }
+    else
+        td.innerText = "Sem valor";
+}
+
 function toTableListComponents(arrayWithPaginations) {
 
     const tbody = document.querySelector('#tbody');
@@ -21,28 +44,12 @@ function toTableListComponents(arrayWithPaginations) {
     for (let i = 0; i < arrayWithPaginations.length; i++) {
 
         const component = arrayWithPaginations[i];
-        const properties = ['id', 'name', 'fone', 'equipment', 'budget', 'firstDate', 'approval'];
+        const properties = ['id', 'name', 'equipment', 'budget', 'firstDate', 'approval', 'status'];
 
         let tr = newTBody.insertRow();
         tr.setAttribute('id', component.id);
 
-        properties.forEach(property => {
-
-            let td = tr.insertCell()
-            td.setAttribute('id', property + '_' + component.id)
-
-            if (component[property] != undefined) {
-
-                if (property == "equipment")
-                    td.innerText = component[property] + " - " + ((component.brand != "") ? component.brand : "Não espefificada") + " - " + ((component.model != "") ? component.model : "Não espefificado")
-                else
-                    td.innerText = (property != 'firstDate') ? component[property] : component.firstDate.split('-').reverse().join('/');
-            }
-            else if (property == "budget")
-                td.innerText = parseInt(component.budgetLabor) + parseInt(component.budgetComponent);
-            else
-                td.innerText = "Sem valor";
-        });
+        properties.forEach(property => insertACellOnComponentsTable(component, property, tr));
 
         let td = tr.insertCell();
         td.setAttribute('class', 'buttonTD');
@@ -95,7 +102,7 @@ function applyFilter() {
                     return true;
             }
             else {
-                if (a[orderBySelector.value] < b[orderBySelector.value])
+                if (a[orderBySelector.value] > b[orderBySelector.value])
                     return -1;
                 else
                     return true;
