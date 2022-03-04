@@ -1,12 +1,11 @@
 const { app, BrowserWindow } = require('electron')
-
 const createWindow = async () => {
 
     let mainWindow = new BrowserWindow({
         minWidth: 950,
         width: 950,
         minHeight: 750,
-        height: 750,
+        height: 750,    
         icon: __dirname + "/src/img/logo.png"
     })
 

@@ -32,15 +32,21 @@ function profitInPeriod() {
 
         if (result.length != 0) {
 
+            let text = "";
             let totalBudgetLabor = 0;
             let totalBudgetComponent = 0
 
             result.forEach(element => {
+
+                const serviceTotalCust = parseInt(element.budgetLabor) + parseInt(element.budgetComponent)
+
+                text += element.equipment + " - " + element.model + ": R$ " + serviceTotalCust + "\n";
+
                 totalBudgetLabor += parseInt(element.budgetLabor);
                 totalBudgetComponent += parseInt(element.budgetComponent);
             });
 
-            const text = "Custo em Mão-de-obra: R$ " + totalBudgetLabor +
+            text += "\nCusto em Mão-de-obra: R$ " + totalBudgetLabor +
                 "\nCusto em Componentes: R$ " + totalBudgetComponent +
                 "\nTotal de orçamento aprovado nesse período: R$ " + parseInt(totalBudgetLabor + totalBudgetComponent);
 
