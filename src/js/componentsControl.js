@@ -1,14 +1,12 @@
-import { db, collection, getDocs, addDoc, setDoc, doc, deleteDoc } from "../../config/firebase.js"
+const { database } = require("../../config/firebase.js")
 
 let allComponents = []
 let arrayFilted = []
 
 async function getAllComponents() {
 
-    const componentsCol = collection(db, 'components');
-    const componentSnapshot = await getDocs(componentsCol);
-
-    allComponents = componentSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+    const data = await database.collection("components").get();
+    allComponents = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 }
 
 function toTableListComponents(arrayWithPaginations) {
@@ -176,7 +174,7 @@ async function addNewComponent() {
 
     newComponent.lastUpdate = new Date()
 
-    await addDoc(collection(db, "components"), newComponent);
+    await database.collection("components").add(newComponent);
 
     applyFilter();
     window.location.reload();
@@ -195,7 +193,7 @@ async function editComponent() {
 
     newComponent.lastUpdate = new Date()
 
-    await setDoc(doc(db, "components", id), newComponent);
+    await database.collection("components").doc(id).set(newComponent);
 
     applyFilter();
     window.location.reload();
@@ -203,7 +201,7 @@ async function editComponent() {
 
 async function deleteComponent(id) {
 
-    await deleteDoc(doc(db, "components", id));
+    await database.collection("components").doc(id).delete();
     window.location.reload();
 }
 
@@ -234,5 +232,5 @@ function setAllEventsListeners() {
     closeFirstModalButton.addEventListener('click', () => { changeStatusModal('#addNewComponent') });
 }
 
-await getAllComponents()
+getAllComponents()
 setAllEventsListeners()

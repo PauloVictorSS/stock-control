@@ -1,13 +1,11 @@
-import { db, collection, getDocs } from "../../config/firebase.js"
+const { database } = require("../../config/firebase.js")
 
 let allClients = [];
 
 async function getAllClients() {
 
-    const clientsCol = collection(db, 'clients');
-    const clientSnapshot = await getDocs(clientsCol);
-
-    allClients = clientSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+    const data = await database.collection("clients").get();
+    allClients = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 }
 function profitInPeriod() {
 
@@ -83,5 +81,4 @@ function setAllEventsListeners() {
 }
 
 await getAllClients()
-
 setAllEventsListeners()

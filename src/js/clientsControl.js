@@ -1,14 +1,12 @@
-import { db, collection, getDocs, setDoc, doc, deleteDoc } from "../../config/firebase.js"
+const { database } = require("../../config/firebase.js")
 
 let allClients = [];
 let arrayFilted = [];
 
 async function getAllClients() {
 
-    const clientsCol = collection(db, 'clients');
-    const clientSnapshot = await getDocs(clientsCol);
-
-    allClients = clientSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+    const data = await database.collection("clients").get();
+    allClients = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 }
 
 function insertACellOnComponentsTable(component, property, tr) {
@@ -71,6 +69,33 @@ function toTableListComponents(arrayWithPaginations) {
     }
 
     tbody.parentNode.replaceChild(newTBody, tbody)
+}
+
+function createAPDF() {
+
+    const elementToPrint = document.querySelector("#element-to-print");
+    elementToPrint.setAttribute('class', '');
+
+    const fileName = "ordem_de_serviço_" + document.querySelector("#idClient").innerText + ".pdf"
+
+    const opt = {
+        margin: [2, 15],
+        filename: fileName,
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: {
+            scale: 2
+        },
+        jsPDF: { orientation: 'landscape' }
+    };
+
+
+    const html2pdf = require('html2pdf.js');
+
+    html2pdf().set(opt).from(elementToPrint).save().then(() => {
+
+        elementToPrint.setAttribute('class', 'none');
+    });
+
 }
 
 function applyFilter() {
@@ -169,6 +194,7 @@ function toAddNewClient() {
     select.selectedIndex = 0
 
     document.querySelector("#addButton").setAttribute('class', 'buttonGreen');
+    document.querySelector("#pdfButton").setAttribute('class', 'buttonGreen none');
     document.querySelector("#editButton").setAttribute('class', 'buttonGreen none');
 
     changeStatusModal('#addNewClient')
@@ -177,27 +203,42 @@ function toAddNewClient() {
 function toEditClient(client) {
 
     document.querySelector("#idClient").innerText = client.id;
+
+    document.querySelector("#element-to-print #idClient").innerText = client.id;
     const allInputs = document.querySelectorAll("div#formsAddClient input, div#formsAddClient textarea");
 
     allInputs.forEach(input => {
         input.value = client[input.id];
     });
 
+    const allElementsToPrint = document.querySelectorAll("div#element-to-print p.values");
+    allElementsToPrint.forEach(input => {
+        input.innerText = client[input.id];
+    });
+
     if (client.approval != undefined) {
         const select = document.querySelector("select#approval");
 
-        if (client.approval == "Não")
+        if (client.approval == "Pendente")
             select.selectedIndex = 0
-        else
+        else if (client.approval == "Não")
             select.selectedIndex = 1
+        else
+            select.selectedIndex = 2
     }
 
     let laborCost = (client.budgetLabor != "") ? client.budgetLabor : 0;
     let componentsCost = (client.budgetComponent != "") ? client.budgetComponent : 0;
 
-    const labelTotalBudget = document.querySelector('#labelTotalBudget');
-    labelTotalBudget.innerHTML = parseInt(laborCost) + parseInt(componentsCost);
+    let totalBudget = parseInt(laborCost) + parseInt(componentsCost);
 
+    const labelTotalBudget = document.querySelector('#labelTotalBudget');
+    labelTotalBudget.innerHTML = totalBudget;
+
+    const pToPrintTotalBudget = document.querySelector('#element-to-print #totalBudget');
+    pToPrintTotalBudget.innerHTML = "R$" + totalBudget + ",00";
+
+    document.querySelector("#pdfButton").setAttribute('class', 'buttonGreen');
     document.querySelector("#editButton").setAttribute('class', 'buttonGreen');
     document.querySelector("#addButton").setAttribute('class', 'buttonGreen none');
 
@@ -220,7 +261,7 @@ async function addNewClient() {
     const select = document.querySelector("select#approval");
     newClient.approval = select.options[select.selectedIndex].value;
 
-    await setDoc(doc(db, "clients", id), newClient);
+    await database.collection("clients").doc(id).set(newClient);
 
     applyFilter();
     window.location.reload();
@@ -234,18 +275,19 @@ async function editClient() {
     let newClient = {};
 
     allInputs.forEach(input => {
-        newClient[input.id] = input.value
+        newClient[input.id] = (input.value != undefined) ? input.value : ""
     });
 
     const select = document.querySelector("select#approval");
     newClient.approval = select.options[select.selectedIndex].value;
 
-    await setDoc(doc(db, "clients", id), newClient);
+    await database.collection("clients").doc(id).set(newClient);
     window.location.reload();
 }
 
 async function deleteClient(id) {
-    await deleteDoc(doc(db, "clients", id));
+
+    await database.collection("clients").doc(id).delete();
     window.location.reload();
 }
 
@@ -299,9 +341,11 @@ function setAllEventsListeners() {
     //Setando os liteners dos botões de adicionar e editar determinado cliente
     const addButton = document.querySelector('#addButton');
     const editButton = document.querySelector('#editButton');
+    const pdfButton = document.querySelector('#pdfButton');
 
     addButton.addEventListener('click', addNewClient);
     editButton.addEventListener('click', editClient);
+    pdfButton.addEventListener('click', createAPDF);
 
     //Setando os liteners dos input para se calcular o custo total
     const inputBudgetLabor = document.querySelector('#budgetLabor');
@@ -315,5 +359,5 @@ function setAllEventsListeners() {
     closeFirstModalButton.addEventListener('click', () => { changeStatusModal('#addNewClient') });
 }
 
-await getAllClients()
+getAllClients()
 setAllEventsListeners()

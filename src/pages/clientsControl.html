@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../styles/componentsControl.css">
     <link rel="stylesheet" href="../styles/modal.css">
     <link rel="stylesheet" href="../styles/addNewClient.css">
+    <link rel="stylesheet" href="../styles/divToPrint.css">
 </head>
 
 <body>
@@ -48,8 +49,9 @@
                 <label for="filterByApproval">Aprovado:</label>
                 <select name="filterByApproval" id="filterByApproval">
                     <option value=""></option>
-                    <option value="Sim">Sim</option>
+                    <option value="Pendente">Pendente</option>
                     <option value="Não">Não</option>
+                    <option value="Sim">Sim</option>
                 </select>
             </div>
             <button class="buttonGreen" id="toAddNewClient">NOVO CLIENTE</button>
@@ -137,6 +139,7 @@
                     <div class="divLabelPlusInput">
                         <label for="approval">Orçamento aprovado:</label>
                         <select name="approval" id="approval">
+                            <option value="Pendente">Pendente</option>
                             <option value="Não">Não</option>
                             <option value="Sim">Sim</option>
                         </select>
@@ -170,12 +173,104 @@
             <div class="divButton">
                 <button class="buttonGreen" id="addButton">ADICIONAR</button>
                 <button class="buttonGreen none" id="editButton">SALVAR ALTERAÇÕES</button>
+                <button class="buttonGreen none" id="pdfButton">GERAR PDF</button>
                 <button id="closeFirstModal" class="buttonRed">FECHAR</button>
             </div>
         </div>
     </div>
+    <div id="element-to-print" class="none">
+        <div id="divFlexTitleAdd">
+            <img src="../img/bannerBlack.png" alt="ES Eletrônica">
+            <div id="titleCardClient">
+                <h2 class="pDisplayNoBlock">Ordem de Serviço Nº</h2>
+                <h2 id="idClient" class="pDisplayNoBlock"></h2>
+            </div>
+        </div>
+        <div id="formsAddClient">
+            <div id="grid2">
+                <div class="divLabelPlusInput second">
+                    <p class="titleValue">Endereço:</p>
+                    <p>Jardim das Laranjeiras - Rua Vitor Hugo José de Souza Nº115 - 13184710</p>
+                </div>
+                <div class="divLabelPlusInput first">
+                    <p class="titleValue">Cidade:</p>
+                    <p id="city" class="values">Hortolândia - SP</p>
+                </div>
+            </div>
+            <div class="divTypesContent">
+                <h3>Dados do cliente</h3>
+                <div class="grid">
+                    <div class="divLabelPlusInput">
+                        <p class="titleValue">Data de Entrada:</p>
+                        <p id="firstDate" class="values"></p>
+                    </div>
+                    <div class="divLabelPlusInput">
+                        <p class="titleValue">Nome:</p>
+                        <p id="name" class="values"></p>
+                    </div>
+                    <div class="divLabelPlusInput">
+                        <p class="titleValue">Telefone:</p>
+                        <p id="fone" class="values"></p>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="divLabelPlusInput first">
+                        <p class="titleValue">Cidade:</p>
+                        <p id="city" class="values"></p>
+                    </div>
+                    <div class="divLabelPlusInput second">
+                        <p class="titleValue">Bairro:</p>
+                        <p id="district" class="values"></p>
+                    </div>
+                    <div class="divLabelPlusInput third">
+                        <p class="titleValue">Endereço:</p>
+                        <p id="local" class="values"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="divTypesContent">
+                <h3>Dados do Equipamento</h3>
+                <div class="grid">
+                    <div class="divLabelPlusInput first">
+                        <p class="titleValue">Equipamento:</p>
+                        <p id="equipment" class="values"></p>
+                    </div>
+                    <div class="divLabelPlusInput second">
+                        <p class="titleValue">Marca:</p>
+                        <p id="brand" class="values"></p>
+                    </div>
+                    <div class="divLabelPlusInput third">
+                        <p class="titleValue">Modelo:</p>
+                        <p id="model" class="values"></p>
+                    </div>
+                </div>
+                <div id="grid2">
+                    <div class="divLabelPlusInput">
+                        <p class="titleValue">Defeito:</p>
+                        <p id="defect" class="values"></p>
+                    </div>
+                    <div class="divLabelPlusInput">
+                        <p class="titleValue">Acessórios:</p>
+                        <p id="accessories" class="values"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="divTypesContent">
+                <h3>Avaliação Técnica</h3>
+                <br />
+                <p id="technicalEvaluationt" class="values"></p>
+                <br />
+                <br />
+                <p class="titleValue">Orçamento: </p>
+                <p class="values" id="totalBudget"></p>
+                <br />
+                <br />
+                <p id="warranty" class="titleValue">Garantia de 90 dias após a entrega</p>
+            </div>
+        </div>
+    </div>
 </body>
-<script src="../js/clientsControl.js" type="module"></script>
+<script src="../js/clientsControl.js"></script>
 <script src="../js/pagination.js"></script>
 
 </html>

@@ -1,14 +1,12 @@
-import { db, collection, getDocs, addDoc, setDoc, doc, deleteDoc } from "../../config/firebase.js"
+const { database } = require("../../config/firebase.js")
 
 let allPartsAndEquipaments = []
 let arrayFilted = []
 
 async function getAllPartsAndEquipaments() {
 
-    const partsAndEquipamentsCol = collection(db, 'partsAndEquipaments');
-    const partsAndEquipamentsSnapshot = await getDocs(partsAndEquipamentsCol);
-
-    allPartsAndEquipaments = partsAndEquipamentsSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+    const data = await database.collection("partsAndEquipaments").get();
+    allPartsAndEquipaments = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 }
 
 function toTableListComponents(arrayWithPaginations) {
@@ -161,7 +159,7 @@ async function addNewEquipament() {
         newEquipament[input.id] = input.value;
     });
 
-    await addDoc(collection(db, "partsAndEquipaments"), newEquipament);
+    await database.collection("partsAndEquipaments").add(newEquipament);
 
     applyFilter();
     window.location.reload();
@@ -178,7 +176,7 @@ async function editComponent() {
         newEquipament[input.id] = input.value;
     });
 
-    await setDoc(doc(db, "partsAndEquipaments", id), newEquipament);
+    await database.collection("partsAndEquipaments").doc(id).set(newEquipament);
 
     applyFilter();
     window.location.reload();
@@ -186,7 +184,8 @@ async function editComponent() {
 
 async function deleteComponent(id) {
 
-    await deleteDoc(doc(db, "partsAndEquipaments", id));
+
+    await database.collection("partsAndEquipaments").doc(id).delete();
     window.location.reload();
 }
 
@@ -212,5 +211,5 @@ function setAllEventsListeners() {
     closeFirstModalButton.addEventListener('click', () => { changeStatusModal('#addNewEquipament') });
 }
 
-await getAllPartsAndEquipaments()
+getAllPartsAndEquipaments()
 setAllEventsListeners()
