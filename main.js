@@ -1,12 +1,17 @@
 const { app, BrowserWindow } = require('electron')
+
 const createWindow = async () => {
 
     let mainWindow = new BrowserWindow({
         minWidth: 950,
         width: 950,
         minHeight: 750,
-        height: 750,    
-        icon: __dirname + "/src/img/logo.png"
+        height: 750,
+        icon: __dirname + "/src/img/logo.png",
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        }
     })
 
     mainWindow.loadURL(`file://${__dirname}/src/index.html`)

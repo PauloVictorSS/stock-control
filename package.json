@@ -10,8 +10,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "electron": "^16.0.5",
-    "firebase": "^9.6.7",
-    "firebase-admin": "^10.0.1"
+    "firebase": "^8.10.0",
+    "html2pdf.js": "^0.10.1"
   }
 }
