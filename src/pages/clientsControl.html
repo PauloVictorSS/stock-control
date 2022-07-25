@@ -66,6 +66,7 @@
                     <th>Data de Entrada</th>
                     <th>Aprovado?</th>
                     <th>Status</th>
+                    <th>Pago?</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -149,6 +150,10 @@
                         <input type="text" name="status" placeholder="Status do serviço" id="status">
                     </div>
                 </div>
+                <div class="flex">
+                    <label for="equipmentDefect">Defeito:</label>
+                    <input type="text" name="equipmentDefect" placeholder="Defeito" id="defect">
+                </div>
                 <div class="grid" id="gridBudget">
                     <div class="divLabelPlusInput second">
                         <label for="budgetLabor">Custo da Mão-de-obra:</label>
@@ -163,10 +168,13 @@
                         <label><i>Custo total: R$ </i></label>
                         <label id="labelTotalBudget"><i>0</i></label>
                     </div>
-                </div>
-                <div class="flex">
-                    <label for="equipmentDefect">Defeito:</label>
-                    <input type="text" name="equipmentDefect" placeholder="Defeito" id="defect">
+                    <div class="divLabelPlusInput">
+                        <label for="paid">Pago?</label>
+                        <select name="paid" id="paid">
+                            <option value="Não">Não</option>
+                            <option value="Sim">Sim</option>
+                        </select>
+                    </div>
                 </div>
                 <textarea placeholder="Avaliação Técnica" id="technicalEvaluationt"></textarea>
             </div>

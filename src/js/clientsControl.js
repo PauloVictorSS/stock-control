@@ -29,7 +29,7 @@ function insertACellOnComponentsTable(component, property, tr) {
             td.innerText = "Sem valor";
     }
     else
-        td.innerText = "Sem valor";
+        td.innerText = "---";
 }
 
 function toTableListComponents(arrayWithPaginations) {
@@ -42,7 +42,7 @@ function toTableListComponents(arrayWithPaginations) {
     for (let i = 0; i < arrayWithPaginations.length; i++) {
 
         const component = arrayWithPaginations[i];
-        const properties = ['id', 'name', 'equipment', 'budget', 'firstDate', 'approval', 'status'];
+        const properties = ['id', 'name', 'equipment', 'budget', 'firstDate', 'approval', 'status', 'paid'];
 
         let tr = newTBody.insertRow();
         tr.setAttribute('id', component.id);
@@ -98,6 +98,18 @@ function createAPDF() {
 
 }
 
+function inputSearchApplyFilter(client, search){
+
+    const fields = ["name", "equipment", "brand", "model"]
+    let condiction = false
+
+    fields.map(field => {
+        condiction = condiction || client[field].toLowerCase().includes(search.toLowerCase())
+    })
+
+    return condiction
+}
+
 function applyFilter() {
 
     const searchName = document.querySelector("#nameComponent");
@@ -111,10 +123,10 @@ function applyFilter() {
         table.setAttribute("class", "");
         divPagination.setAttribute("class", "");
 
-        const result = allClients.filter((component) => {
+        const result = allClients.filter((client) => {
 
-            let filterName = (searchName.value != "") ? component.name.toLowerCase().includes(searchName.value.toLowerCase()) : true;
-            let filterApproval = (selectFilterByApproval.value != "") ? (component.approval == selectFilterByApproval.value) : true;
+            let filterName = (searchName.value != "") ? inputSearchApplyFilter(client, searchName.value) : true;
+            let filterApproval = (selectFilterByApproval.value != "") ? (client.approval == selectFilterByApproval.value) : true;
 
             return filterName && filterApproval;
         })
@@ -190,8 +202,10 @@ function toAddNewClient() {
         input.value = "";
     });
 
-    const select = document.querySelector("select#approval");
-    select.selectedIndex = 0
+    const selectApproval = document.querySelector("select#approval");
+    const selectPaid = document.querySelector("select#paid");
+    selectApproval.selectedIndex = 0
+    selectPaid.selectedIndex = 0
 
     document.querySelector("#addButton").setAttribute('class', 'buttonGreen');
     document.querySelector("#pdfButton").setAttribute('class', 'buttonGreen none');
@@ -225,6 +239,14 @@ function toEditClient(client) {
             select.selectedIndex = 1
         else
             select.selectedIndex = 2
+    }
+    if (client.paid != undefined) {
+        const select = document.querySelector("select#paid");
+
+        if (client.paid == "Não")
+            select.selectedIndex = 0
+        else
+            select.selectedIndex = 1
     }
 
     let laborCost = (client.budgetLabor != "") ? client.budgetLabor : 0;
@@ -278,8 +300,13 @@ async function editClient() {
         newClient[input.id] = (input.value != undefined) ? input.value : ""
     });
 
-    const select = document.querySelector("select#approval");
-    newClient.approval = select.options[select.selectedIndex].value;
+    const selectApproval = document.querySelector("select#approval");
+    newClient.approval = selectApproval.options[selectApproval.selectedIndex].value;
+
+    const selectPaid = document.querySelector("select#paid");
+    newClient.paid = selectPaid.options[selectPaid.selectedIndex].value;
+
+    console.log(newClient)
 
     await database.collection("clients").doc(id).set(newClient);
     window.location.reload();

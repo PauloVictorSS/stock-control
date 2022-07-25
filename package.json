@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.0.0",
-    "electron": "^16.0.5",
+    "electron": "^19.0.9",
     "firebase": "^8.10.0",
     "html2pdf.js": "^0.10.1"
   }
