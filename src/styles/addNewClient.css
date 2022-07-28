@@ -116,8 +116,15 @@ div.divLabelPlusInput #approval{
     margin: 0;
 }
 
-.modalBody#modalClient textarea{
+.modalBody#modalClient .div-area{
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modalBody#modalClient textarea{
+    width: 49%;
     resize: none;
     height: 150px;
 

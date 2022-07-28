@@ -222,7 +222,7 @@ function toEditClient(client) {
     const allInputs = document.querySelectorAll("div#formsAddClient input, div#formsAddClient textarea");
 
     allInputs.forEach(input => {
-        input.value = client[input.id];
+        input.value = (client[input.id] != undefined ? client[input.id] : "");
     });
 
     const allElementsToPrint = document.querySelectorAll("div#element-to-print p.values");

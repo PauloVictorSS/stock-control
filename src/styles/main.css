@@ -20,7 +20,9 @@ html, body{
     height: 100%;
     margin: 0;
     padding: 0;
+    font-weight: 400;
     box-sizing: border-box;
+    font-family: century-gothic, sans-serif;
 }
 
 a{
@@ -44,7 +46,7 @@ select{
 /* Referente as tabelas */
 table{
     width: 95%;
-    max-width: 1200px;
+    max-width: 1400px;
 
     border-spacing: 0;
     margin: 20px auto;

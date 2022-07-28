@@ -4,9 +4,9 @@ const createWindow = async () => {
 
     let mainWindow = new BrowserWindow({
         minWidth: 950,
-        width: 950,
-        minHeight: 750,
-        height: 750,
+        width: 1250,
+        minHeight: 800,
+        height: 800,
         icon: __dirname + "/src/img/logo.png",
         webPreferences: {
             nodeIntegration: true,

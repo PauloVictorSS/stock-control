@@ -17,10 +17,10 @@
     <div id="main-div">
         <div id="divButtonMenu">
             <a href="./componentsControl.html" class="link">
-                Busca de Componente
+                 Componente
             </a>
             <a href="./componentsControl.html" class="link active">
-                Busca de Clientes
+                 Clientes
             </a>
             <a href="./partsAndEquipmentControl.html" class="link">
                 Peças e Equipamentos
@@ -32,11 +32,11 @@
         <div id="divTitulo">
             <img src="../img/banner.png" alt="ES Eletrônica">
         </div>
-        <h2 id="h3Title">Busca de Clientes</h2>
+        <h2 id="h3Title"> Clientes</h2>
         <div id="form-filter">
             <div>
-                <label for="nameComponent">Nome do cliente: </label>
-                <input type="text" name="nameComponent" id="nameComponent" placeholder="Nome do cliente">
+                <label for="nameComponent">Pesquisa: </label>
+                <input type="text" name="nameComponent" id="nameComponent" placeholder="cliente, equipamento, ...">
             </div>
             <div class="labelPlusInput">
                 <label for="orderBySelect">Ordenar por:</label>
@@ -64,9 +64,9 @@
                     <th>Equipamento - Marca - Modelo</th>
                     <th>Orçamento</th>
                     <th>Data de Entrada</th>
-                    <th>Aprovado?</th>
+                    <th>Aprovado</th>
                     <th>Status</th>
-                    <th>Pago?</th>
+                    <th>Pago</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -165,18 +165,21 @@
                             id="budgetComponent">
                     </div>
                     <div id="totalBudget">
-                        <label><i>Custo total: R$ </i></label>
+                        <label><i>Total: R$ </i></label>
                         <label id="labelTotalBudget"><i>0</i></label>
                     </div>
                     <div class="divLabelPlusInput">
-                        <label for="paid">Pago?</label>
+                        <label for="paid">Pago</label>
                         <select name="paid" id="paid">
                             <option value="Não">Não</option>
                             <option value="Sim">Sim</option>
                         </select>
                     </div>
                 </div>
-                <textarea placeholder="Avaliação Técnica" id="technicalEvaluationt"></textarea>
+                <div class="div-area">
+                    <textarea placeholder="Avaliação técnica" id="technicalEvaluationt"></textarea>
+                    <textarea placeholder="Itens trocados" id="changedEquipments"></textarea>
+                </div>
             </div>
             <div class="divButton">
                 <button class="buttonGreen" id="addButton">ADICIONAR</button>
